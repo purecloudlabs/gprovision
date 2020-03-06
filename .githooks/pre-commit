@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# This script does not handle file names that contain spaces.
+
+# lint json
+# https://gist.github.com/jeekl/5083519
+for file in $(git diff-index --name-only --diff-filter=ACM --cached HEAD -- | grep -P '\.((js)|(json))$'); do
+    jq . <$file >/dev/null 2>&1
+    if [ $? -ne 0 ] ; then
+        echo "Lint check of JSON object failed. Your changes were not commited."
+        echo "in $(git rev-parse --show-toplevel)/$file:"
+        jq . <$file
+        exit 1
+    fi
+done
+
+
+
+gofiles=$(git diff --cached --name-only --diff-filter=ACMR | grep '\.go$')
+[ -z "$gofiles" ] && exit 0
+
+# make sure copyright statement exists in go files
+nonotice=$(for f in $(grep -v /vendor/ <<<$gofiles); do [[ "$(sed -n '1{/^.. Copyright (C)/p};q' "$f")" ]] || echo $f; done)
+
+if [[ -n "$nonotice" ]]; then
+  echo >&2 "$(tput setab 1;tput bold)Go files lacking copyright:$(tput sgr0)"
+  echo >&2 "$nonotice"
+  exit 1
+fi
+
+# make sure go files are formatted
+unformatted=$(gofmt -l $gofiles)
+[ -z "$unformatted" ] && exit 0
+
+# Some files are not gofmt'd. Print message and fail.
+
+echo >&2 "$(tput setab 1;tput bold)Go files must be formatted with gofmt.$(tput sgr0) Please run:"
+tput setaf 2
+for fn in $unformatted; do
+	echo >&2 "  gofmt -w $PWD/$fn"
+done
+tput sgr0;echo
+exit 1
