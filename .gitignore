@@ -1,0 +1,9 @@
+/linux-4*.tar.xz
+/linux-4*/
+/old
+/work
+/combined.cpio.xz
+bindata.go
+generated.go
+unit_test_out.xml
+*_qav.htm
