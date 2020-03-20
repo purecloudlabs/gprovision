@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+cd $GOPATH/src/mage/
+exec go run magerunner.go -v $@
