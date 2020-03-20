@@ -1,0 +1,20 @@
+#!/bin/sh
+
+
+netup()
+{
+  if [ "x$1" == "x" ]; then
+    #exit 1
+    echo "requires an arg"
+    return
+  fi
+  echo $1
+  echo ">>> $1 <<<" >>/net.log 2>&1
+  ip link set dev $1 up >>/net.log 2>&1
+  sleep .1
+  udhcpc -i $1 -s /usr/share/udhcpc/default.script >>/net.log 2>&1
+  sleep 2
+}
+
+echo netup dev
+
