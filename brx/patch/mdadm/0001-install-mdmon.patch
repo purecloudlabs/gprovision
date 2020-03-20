@@ -1,0 +1,24 @@
+--- a/Makefile
++++ b/Makefile
+@@ -172,7 +172,8 @@
+ # mdadm.uclibc and mdassemble.uclibc don't work on x86-64
+ # mdadm.tcc doesn't work..
+
+-mdadm : $(OBJS) | check_rundir
++# hacky dep to force mdmon to be built. alternative is to maintain our own mdadm package.
++mdadm : $(OBJS) mdmon | check_rundir
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -o mdadm $(OBJS) $(LDLIBS)
+
+ mdadm.static : $(OBJS) $(STATICOBJS)
+@@ -260,10 +261,9 @@
+ 
+ install : install-mdadm install-mdmon install-man install-udev
+ 
++# patched to undo the buildroot patch that prevents installation of mdmon
+ install-mdadm :
+ 	$(INSTALL) -D $(STRIP) -m 755 mdadm $(DESTDIR)$(BINDIR)/mdadm
+-
+-install-mdmon :
+ 	$(INSTALL) -D $(STRIP) -m 755 mdmon $(DESTDIR)$(BINDIR)/mdmon
+ 
+ install-static : mdadm.static install-man
