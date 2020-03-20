@@ -1,0 +1,16 @@
+> Write CMD_HwFwVers
+> Write CMD_ReadReportingAndStatus
+> Write CMD_Clear
+> Write CMD_SetKeyLegend={01 00 02 05 01}
+> Write CMD_CfgKeyReports={00 0f}
+> Write CMD_Write, @{c00,r1} txt="\x10No\x11 Yes         "
+> Write CMD_Write, @{c00,r0} txt="Are you really c\x15"
+> Write CMD_Write, @{c00,r1} txt="\x10No\x11 Yes         "
+> Write CMD_Write, @{c00,r0} txt="\x14e you really ce\x15"
+> Write CMD_Write, @{c00,r0} txt="\x14 you really cer\x15"
+> Write CMD_Write, @{c00,r0} txt="\x14you really cert\x15"
+> Write CMD_Write, @{c00,r0} txt="\x14ou really certa\x15"
+> Write CMD_SetKeyLegend={01 06 02 00 01}
+> Write CMD_Write, @{c00,r0} txt="\x14u really certai\x15"
+> Write CMD_Write, @{c00,r1} txt=" No \x10Yes\x11        "
+> Write CMD_SetKeyLegend={00}

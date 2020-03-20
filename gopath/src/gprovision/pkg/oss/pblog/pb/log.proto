@@ -1,0 +1,108 @@
+syntax = "proto3";
+package pb;
+
+import "google/protobuf/empty.proto";
+
+//Protocol buffer defs for logging. Use case: tracking provisioning process.
+
+service LogService {
+    //stream or no?
+    rpc Log(LogEvent) returns (GenericResponse);
+}
+
+enum EvtType {
+    LOG           = 0;
+    MSG           = 1;
+    SUCCESS       = 2;
+    ERROR         = 3;
+    SESS_START    = 4;
+    //following are used in server app; likely not useful on wire.
+    PRINT         = 5;
+    PRINT_ERR     = 6;
+    CODENAME      = 7;
+    STATE         = 8;
+    SETPW         = 9;
+}
+
+message LogEvent {
+    string SN = 1;
+    EvtType EventType = 2;
+    Timestamp Time = 3;
+    string Payload = 4;
+}
+
+//used for storage of multiple le's
+message LogEvents {
+    repeated LogEvent Evt = 1;
+}
+
+message Timestamp{
+    int64 TS = 1;
+}
+
+message GenericResponse {
+    EvtType EventType = 1; //only types that make sense here are ERROR and SUCCESS.
+    string ErrMsg = 2;
+}
+
+
+//must implement imaging.RecordKeeper
+service RecordKeeper {
+    rpc StoreMACs(MACs) returns (GenericResponse);
+    rpc StoreIPMIMACs(MACs) returns (GenericResponse);
+    rpc ReportState(ProcessStage) returns (GenericResponse);
+    rpc ReportCodename(Codename) returns (GenericResponse);
+    rpc StoreDocument(Document) returns (GenericResponse);
+}
+
+message MACs {
+    string SN = 1;
+    repeated string MAC = 2;
+}
+
+message ProcessStage {
+    string SN = 1;
+    ProcessState State = 2;
+}
+
+enum ProcessState {
+    UNKNOWN        = 0;
+    MFG_STARTED    = 1;
+    MFG_SUCCEEDED  = 2;
+    MFG_FAILED     = 3;
+    FR_STARTED     = 4;
+    FR_SUCCEEDED   = 5;
+    FR_FAILED      = 6;
+    INIT_STARTED   = 7;
+    INIT_SUCCEEDED = 8;
+    INIT_FAILED    = 9;
+}
+
+message Codename {
+    string SN = 1;
+    string Name = 2;
+}
+
+message Document {
+    string SN = 1;
+    string Name = 2;
+    string Doctype = 3;
+    bytes  Body = 4;
+}
+
+service Timekeeper {
+    rpc GetTime(google.protobuf.Empty) returns (Timestamp);
+}
+
+//for imaging.Stasher
+service Secrets {
+    rpc GetCredentials(Identifier) returns (Credentials);
+}
+message Identifier {
+    string Id = 1;
+}
+message Credentials {
+    string OS = 1;
+    string BIOS = 2;
+    string IPMI = 3;
+}

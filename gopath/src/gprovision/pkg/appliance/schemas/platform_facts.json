@@ -1,0 +1,176 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/PlatFacts",
+  "definitions": {
+    "NICInfo": {
+      "required": [
+        "SharedDiagPorts",
+        "WANIndex",
+        "DefaultNamesNoDiag"
+      ],
+      "properties": {
+        "DefaultNamesNoDiag": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "MACPrefix": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "SharedDiagPorts": {
+          "items": {
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "WANIndex": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "PlatFacts": {
+      "required": [
+        "Familyname",
+        "NICInfo",
+        "Lcd",
+        "DevCodeName",
+        "Mfg",
+        "Prod",
+        "SKU",
+        "Serial"
+      ],
+      "properties": {
+        "BiosConfigTool": {
+          "type": "string"
+        },
+        "CPU": {
+          "type": "string"
+        },
+        "DevCodeName": {
+          "type": "string"
+        },
+        "DiskIsSSD": {
+          "type": "boolean"
+        },
+        "DiskSTol": {
+          "type": "integer"
+        },
+        "DiskTTol": {
+          "type": "integer"
+        },
+        "Disksize": {
+          "type": "integer"
+        },
+        "DmiMbMfg": {
+          "type": "string"
+        },
+        "DmiPMOverrideFld": {
+          "type": "string"
+        },
+        "DmiPMOverrideTyp": {
+          "type": "integer"
+        },
+        "DmiProdModelRegex": {
+          "type": "string"
+        },
+        "DmiProdName": {
+          "type": "string"
+        },
+        "FakeraidType": {
+          "type": "string"
+        },
+        "Familyname": {
+          "type": "string"
+        },
+        "IPMI": {
+          "type": "boolean"
+        },
+        "IPMIChannel": {
+          "type": "integer"
+        },
+        "IpmiConfigTool": {
+          "type": "string"
+        },
+        "Lcd": {
+          "type": "string"
+        },
+        "Lowmemory": {
+          "type": "boolean"
+        },
+        "Mfg": {
+          "type": "string"
+        },
+        "NICInfo": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "$ref": "#/definitions/NICInfo"
+        },
+        "NumDataDisks": {
+          "type": "integer"
+        },
+        "Partoffset": {
+          "type": "string"
+        },
+        "Prod": {
+          "type": "string"
+        },
+        "Prototype": {
+          "type": "boolean"
+        },
+        "RecoveryMedia": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "$ref": "#/definitions/recoveryMediaS"
+        },
+        "SKU": {
+          "type": "string"
+        },
+        "SerNumField": {
+          "type": "string"
+        },
+        "Serial": {
+          "type": "string"
+        },
+        "SwRaidlevel": {
+          "type": "integer"
+        },
+        "Virttype": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "recoveryMediaS": {
+      "required": [
+        "FsType"
+      ],
+      "properties": {
+        "FsOptsAdditional": {
+          "type": "string"
+        },
+        "FsOptsOverride": {
+          "type": "boolean"
+        },
+        "FsType": {
+          "type": "string"
+        },
+        "LocateRDMethod": {
+          "type": "string"
+        },
+        "SSD": {
+          "type": "boolean"
+        },
+        "ValidateRDMethod": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    }
+  }
+}

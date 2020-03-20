@@ -1,0 +1,13 @@
+> Write CMD_HwFwVers
+> Write CMD_ReadReportingAndStatus
+> Write CMD_Clear
+> Write CMD_Write, @{c19,r0} txt=" "
+> Write CMD_Write, @{c19,r3} txt=" "
+> Write CMD_CfgKeyReports={00 3f}
+> Write CMD_Write, @{c00,r3} txt="\x10No\x11 Yes            "
+> Write CMD_Write, @{c00,r0} txt="Are you really      "
+> Write CMD_Write, @{c00,r1} txt="certain?            "
+> Write CMD_Write, @{c00,r2} txt="                    "
+> Write CMD_Write, @{c00,r3} txt="\x10No\x11 Yes            "
+> Write CMD_Write, @{c19,r0} txt=" "
+> Write CMD_Write, @{c19,r3} txt=" "

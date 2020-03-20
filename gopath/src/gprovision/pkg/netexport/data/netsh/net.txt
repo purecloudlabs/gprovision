@@ -1,0 +1,308 @@
+#========================
+# Interface configuration
+#========================
+pushd interface 
+
+
+popd
+# End of interface configuration
+
+
+
+# ----------------------------------
+# IPHTTPS Configuration
+# ----------------------------------
+pushd interface httpstunnel
+
+reset
+
+
+popd
+# End of IPHTTPS configuration
+
+
+
+# ----------------------------------
+# IPv4 Configuration
+# ----------------------------------
+pushd interface ipv4
+
+reset
+set global icmpredirects=enabled
+set interface interface="Local Area Connection* 10" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 6" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 3" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 4" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 2" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 7" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 1 (WAN)" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 0 (Diag)" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 5" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+
+
+popd
+# End of IPv4 configuration
+
+
+
+# ----------------------------------
+# IPv6 Configuration
+# ----------------------------------
+pushd interface ipv6
+
+reset
+set interface interface="Local Area Connection* 10" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 6" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 3" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 4" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 2" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 7" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 1 (WAN)" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 0 (Diag)" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Port 5" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="isatap.indy.rr.com" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+set interface interface="Teredo Tunneling Pseudo-Interface" forwarding=enabled advertise=enabled mtu=1280 nud=enabled ignoredefaultroutes=disabled
+set interface interface="Reusable ISATAP Interface {CFBE143E-5E9E-4625-A500-C3F036200411}" forwarding=enabled advertise=enabled nud=enabled ignoredefaultroutes=disabled
+
+
+popd
+# End of IPv6 configuration
+
+
+
+# ----------------------------------
+# ISATAP Configuration
+# ----------------------------------
+pushd interface isatap
+
+
+
+popd
+# End of ISATAP configuration
+
+
+
+# ----------------------------------
+# 6to4 Configuration
+# ----------------------------------
+pushd interface 6to4
+
+reset
+
+
+
+popd
+# End of 6to4 configuration
+
+
+
+# ----------------------------------
+# ISATAP Configuration
+# ----------------------------------
+pushd interface isatap
+
+
+
+popd
+# End of ISATAP configuration
+
+
+#========================
+# Port Proxy configuration
+#========================
+pushd interface portproxy
+
+reset
+
+
+popd
+
+# End of Port Proxy configuration
+
+
+
+# ----------------------------------
+# TCP Configuration
+# ----------------------------------
+pushd interface tcp
+
+reset
+
+set global rss=enabled chimney=disabled autotuninglevel=normal congestionprovider=none ecncapability=disabled timestamps=disabled netdma=disabled dca=disabled initialrto=3000 rsc=disabled
+
+
+popd
+# End of TCP configuration
+
+
+
+# ----------------------------------
+# Teredo Configuration
+# ----------------------------------
+pushd interface teredo
+set state type=client servername=teredo.ipv6.microsoft.com. servervirtualip=0.0.0.0
+
+
+
+popd
+# End of Teredo configuration
+
+
+
+# ----------------------------------
+# 6to4 Configuration
+# ----------------------------------
+pushd interface 6to4
+
+reset
+
+
+
+popd
+# End of 6to4 configuration
+
+
+The 'netsh advfirewall dump' command is not implemented in this version
+of Windows. Instead, use the 'netsh advfirewall export' command to write
+the current Windows Firewall with Advanced Security configuration from
+the current policy store to a file on disk. You can then use 'netsh
+advfirewall import' to read the file and load it into another policy
+store, such as a Group Policy object or the current policy store on
+another computer. To set the current policy store, use the 'netsh
+advfirewall set store' command.
+For more information about the commands in the netsh advfirewall context,
+see Netsh Commands for Windows Firewall with Advanced Security at
+http://go.microsoft.com/fwlink/?linkid=111237.
+# ----------------------------------------
+# Wired LAN Configuration
+# ----------------------------------------
+pushd lan
+
+
+popd
+
+# End of Wired LAN Configuration.
+
+
+Mobile Broadband configuration dump is not supported
+
+                                            
+# ----------------------------------------- 
+# Remote Access Configuration               
+# ----------------------------------------- 
+pushd ras
+
+set authmode mode = standard
+delete authtype type = PAP
+delete authtype type = MD5CHAP
+delete authtype type = MSCHAPv2
+delete authtype type = EAP
+delete authtype type = CERT
+add authtype type = MSCHAPv2
+delete link type = SWC
+delete link type = LCP
+add link type = SWC
+add link type = LCP
+delete multilink type = MULTI
+add multilink type = MULTI
+set conf confstate = disabled
+set type ipv4rtrtype = lananddd ipv6rtrtype = none rastype = ipv4
+set wanports device = "WAN Miniport (L2TP)" rasinonly = enabled ddinout = disabled ddoutonly = disabled maxports = 2 
+set wanports device = "WAN Miniport (SSTP)" rasinonly = enabled ddinout = disabled ddoutonly = disabled maxports = 2 
+set wanports device = "WAN Miniport (IKEv2)" rasinonly = enabled ddinout = disabled ddoutonly = disabled maxports = 2 
+set wanports device = "WAN Miniport (PPTP)" rasinonly = enabled ddinout = disabled ddoutonly = disabled maxports = 2 
+set wanports device = "WAN Miniport (PPPOE)" ddoutonly = enabled
+
+
+
+popd
+
+# End of Remote Access configuration.        
+                                             
+                                             
+
+                                            
+# ----------------------------------------- 
+# Remote Access Diagnostics Configuration   
+# ----------------------------------------- 
+pushd ras diagnostics
+
+set rastracing component = * state = disabled
+
+set modemtracing state = disabled
+
+set cmtracing state = disabled
+
+set securityeventlog state = disabled
+
+set loglevel events = warn
+
+
+popd
+
+# End of Remote Access Diagnostics Configuration.
+                                                 
+                                                 
+
+                                            
+# ----------------------------------------- 
+# Remote Access IP Configuration            
+# ----------------------------------------- 
+pushd ras ip
+
+delete pool
+
+set negotiation mode = allow
+set access mode = all
+set addrreq mode = deny
+set broadcastnameresolution mode = enabled
+set addrassign method = auto
+set preferredadapter 
+
+popd
+
+# End of Remote Access IP configuration.     
+                                             
+
+                                            
+# ----------------------------------------- 
+# Remote Access IPv6 Configuration          
+# ----------------------------------------- 
+pushd ras ipv6
+
+
+
+set negotiation mode = deny
+set access mode = all
+set routeradvertise mode = enabled
+
+popd
+
+# End of Remote Access IPv6 configuration.   
+                                             
+
+                                            
+# ----------------------------------------- 
+# Remote Access AAAA Configuration          
+# ----------------------------------------- 
+pushd ras aaaa
+
+
+popd
+
+# End of Remote Access AAAA configuration.     
+                                               
+                                               
+
+
+# -----------------------------------------
+# WinHTTP Proxy Configuration
+# -----------------------------------------
+pushd winhttp
+
+reset proxy
+
+popd
+
+# End of WinHTTP Proxy Configuration
+

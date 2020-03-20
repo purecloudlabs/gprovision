@@ -1,0 +1,4 @@
+> Write CMD_HwFwVers
+> Write CMD_ReadReportingAndStatus
+> Write CMD_CfgKeyReports={00 00}
+> Write CMD_SetBacklight, dlen=1, data={00}, crc={0f cf}

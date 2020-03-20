@@ -1,0 +1,31 @@
+﻿AdapterIPSettingsStart
+"Intel(R) Ethernet Server Adapter I350-T4 #3","NameServerList",,"","0026FDA00D56","VEN_8086&DEV_1521&SUBSYS_80860001&REV_01&3&0","3:0:0"
+"Intel(R) Ethernet Server Adapter I350-T4 #3","NetbiosOptions","0","","0026FDA00D56","VEN_8086&DEV_1521&SUBSYS_80860001&REV_01&3&0","3:0:0"
+"Intel(R) Ethernet Server Adapter I350-T4","NameServerList",,"","0026FDA00D55","VEN_8086&DEV_1521&SUBSYS_80860001&REV_01&3&1","3:0:1"
+"Intel(R) Ethernet Server Adapter I350-T4","NetbiosOptions","0","","0026FDA00D55","VEN_8086&DEV_1521&SUBSYS_80860001&REV_01&3&1","3:0:1"
+"Intel(R) Ethernet Server Adapter I350-T4 #2","NameServerList",,"","0026FDA00D53","VEN_8086&DEV_1521&SUBSYS_80860001&REV_01&3&3","3:0:3"
+"Intel(R) Ethernet Server Adapter I350-T4 #2","NetbiosOptions","0","","0026FDA00D53","VEN_8086&DEV_1521&SUBSYS_80860001&REV_01&3&3","3:0:3"
+"Intel(R) I350 Gigabit Network Connection #3","NameServerList",,"","0026FDA00D4F","VEN_8086&DEV_1521&SUBSYS_8086358a&REV_01&8&1","8:0:1"
+"Intel(R) I350 Gigabit Network Connection #3","NetbiosOptions","0","","0026FDA00D4F","VEN_8086&DEV_1521&SUBSYS_8086358a&REV_01&8&1","8:0:1"
+"Intel(R) I350 Gigabit Network Connection","DefaultGateway",,"10.155.8.1","0026FDA00D51","VEN_8086&DEV_1521&SUBSYS_8086358a&REV_01&8&3","8:0:3"
+"Intel(R) I350 Gigabit Network Connection","IPAddress",,"10.155.8.11","0026FDA00D51","VEN_8086&DEV_1521&SUBSYS_8086358a&REV_01&8&3","8:0:3"
+"Intel(R) I350 Gigabit Network Connection","NameServer","8.8.4.4,1.2.3.4","","0026FDA00D51","VEN_8086&DEV_1521&SUBSYS_8086358a&REV_01&8&3","8:0:3"
+"Intel(R) I350 Gigabit Network Connection","NameServerList",,"","0026FDA00D51","VEN_8086&DEV_1521&SUBSYS_8086358a&REV_01&8&3","8:0:3"
+"Intel(R) I350 Gigabit Network Connection","NetbiosOptions","0","","0026FDA00D51","VEN_8086&DEV_1521&SUBSYS_8086358a&REV_01&8&3","8:0:3"
+"Intel(R) I350 Gigabit Network Connection","SubnetMask",,"255.255.254.0","0026FDA00D51","VEN_8086&DEV_1521&SUBSYS_8086358a&REV_01&8&3","8:0:3"
+AdapterIPSettingsEnd
+
+TeamIPSettingsStart
+TeamIPSettingsEnd
+
+VlanIPSettingsStart
+"Intel(R) Ethernet Server Adapter I350-T4 #4","88","NameServer","8.8.8.8,8.8.4.4",""
+"Intel(R) Ethernet Server Adapter I350-T4 #4","88","NetbiosOptions","0",""
+"Intel(R) I350 Gigabit Network Connection #2","54","NetbiosOptions","0",""
+"Intel(R) Ethernet Server Adapter I350-T4 #4","88","DefaultGateway",,"10.155.8.1"
+"Intel(R) Ethernet Server Adapter I350-T4 #4","88","IPAddress",,"10.155.8.15,10.155.8.16"
+"Intel(R) Ethernet Server Adapter I350-T4 #4","88","NameServerList",,""
+"Intel(R) Ethernet Server Adapter I350-T4 #4","88","SubnetMask",,"255.0.0.0,255.0.0.0"
+"Intel(R) I350 Gigabit Network Connection #2","54","NameServerList",,""
+VlanIPSettingsEnd
+

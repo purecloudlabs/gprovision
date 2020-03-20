@@ -1,0 +1,98 @@
+﻿AdaptersStart
+"Intel(R) Ethernet Connection I218-LM","Intel(R) Ethernet Connection I218-LM","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0:0"
+"Intel(R) I210 Gigabit Network Connection","Intel(R) I210 Gigabit Network Connection","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0:0"
+AdaptersEnd
+
+OEMSettingStart
+OEMSettingEnd
+
+PMSettingsStart
+PMSettingsEnd
+
+AdapterSettingsStart
+"Intel(R) Ethernet Connection I218-LM","*FlowControl","3","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*InterruptModeration","1","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*IPChecksumOffloadIPv4","3","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*JumboPacket","1514","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*LsoV2IPv4","1","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*LsoV2IPv6","1","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*NumRssQueues","2","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*PMARPOffload","1","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*PMNSOffload","1","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*PriorityVLANTag","3","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*ReceiveBuffers","256","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*RSS","1","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*SpeedDuplex","0","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*TCPChecksumOffloadIPv4","3","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*TCPChecksumOffloadIPv6","3","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*TransmitBuffers","512","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*UDPChecksumOffloadIPv4","3","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*UDPChecksumOffloadIPv6","3","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*WakeOnMagicPacket","0","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","*WakeOnPattern","1","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","AdaptiveIFS","0","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","EEELinkAdvertisement","1","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","EnablePME","1","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","ITR","65535","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","LinkNegotiationProcess","1","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","LogLinkStateEvent","51","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","MasterSlave","0","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","NetworkAddress","0026FDA03478","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","SipsEnabled","0","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","WaitAutoNegComplete","2","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","WakeOnLink","0","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) Ethernet Connection I218-LM","ConnectionName","Lan1","","0026FDA03478","VEN_8086&DEV_155a&SUBSYS_80860000&REV_04&0&c8","0:25:0"
+"Intel(R) I210 Gigabit Network Connection","EnableLLI","0","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","LLIPorts",,"","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*FlowControl","3","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*InterruptModeration","1","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*IPChecksumOffloadIPv4","3","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*JumboPacket","1514","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*LsoV2IPv4","1","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*LsoV2IPv6","1","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*NumRssQueues","4","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*PMARPOffload","1","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*PMNSOffload","1","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*PriorityVLANTag","3","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*ReceiveBuffers","256","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*RSS","1","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*SpeedDuplex","0","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*TCPChecksumOffloadIPv4","3","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*TCPChecksumOffloadIPv6","3","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*TransmitBuffers","512","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*UDPChecksumOffloadIPv4","3","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*UDPChecksumOffloadIPv6","3","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*WakeOnMagicPacket","0","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","*WakeOnPattern","1","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","DMACoalescing","0","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","EEELinkAdvertisement","1","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","EnablePME","0","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","ITR","65535","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","LogLinkStateEvent","51","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","MasterSlave","0","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","NetworkAddress","","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","ReduceSpeedOnPowerDown","1","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","WaitAutoNegComplete","2","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","WakeOnLink","0","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","EnableDHCP","0","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+"Intel(R) I210 Gigabit Network Connection","ConnectionName","Lan2 (WAN)","","0026FDA03479","VEN_8086&DEV_1533&SUBSYS_00000000&REV_03&2&0","2:0:0"
+AdapterSettingsEnd
+
+TeamsStart
+TeamsEnd
+
+TeamSettingsStart
+TeamSettingsEnd
+
+VlansStart
+"Intel(R) Ethernet Connection I218-LM","1","VLAN1"
+VlansEnd
+
+VlanSettingsStart
+"Intel(R) Ethernet Connection I218-LM","Intel(R) Ethernet Connection I218-LM - VLAN : VLAN1","1","EnableDHCP","0"
+"Intel(R) Ethernet Connection I218-LM","Intel(R) Ethernet Connection I218-LM - VLAN : VLAN1","1","ConnectionName","Lan1 - VLAN 1"
+VlanSettingsEnd
+
+NICPARTSettingsStart
+NICPARTSettingsEnd
+

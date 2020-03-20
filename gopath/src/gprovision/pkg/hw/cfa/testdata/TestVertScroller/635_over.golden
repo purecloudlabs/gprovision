@@ -1,0 +1,16 @@
+> Write CMD_HwFwVers
+> Write CMD_ReadReportingAndStatus
+> Write CMD_Write, @{c00,r0} txt="635 long overflow  "
+> Write CMD_Write, @{c00,r1} txt="second line fits   "
+> Write CMD_Write, @{c00,r2} txt="third              "
+> Write CMD_Write, @{c00,r3} txt="fourth             "
+> Write CMD_Write, @{c00,r0} txt="second line fits   "
+> Write CMD_Write, @{c00,r1} txt="third              "
+> Write CMD_Write, @{c00,r2} txt="fourth             "
+> Write CMD_Write, @{c00,r3} txt="...and overflow    "
+> Write CMD_Write, @{c00,r0} txt="third              "
+> Write CMD_Write, @{c00,r1} txt="fourth             "
+> Write CMD_Write, @{c00,r2} txt="...and overflow    "
+> Write CMD_Write, @{c00,r3} txt="                   "
+> Write CMD_CfgKeyReports={00 00}
+> Write CMD_SetBacklight, dlen=1, data={00}, crc={0f cf}

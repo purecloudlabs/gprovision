@@ -1,0 +1,64 @@
+> Write CMD_HwFwVers
+> Write CMD_ReadReportingAndStatus
+> Write CMD_SetKeyLegend={01 03 02 04 01}
+LOG:Write seq 0 begins -------------
+> Write CMD_Write, @{c00,r0} txt="a                "
+> Write CMD_Write, @{c00,r1} txt="aa               "
+> Write CMD_SetCursorPos={00 00}
+LOG:Write seq 1 begins -------------
+LOG:Write seq 2 begins -------------
+> Write CMD_SetCursorPos={00 01}
+> Write CMD_SetKeyLegend={01 03 02 00 01}
+LOG:Write seq 3 begins -------------
+> Write CMD_Write, @{c00,r0} txt="aa               "
+> Write CMD_Write, @{c00,r1} txt="loooooooong item\x15"
+LOG:Write seq 4 begins -------------
+LOG:Write seq 5 begins -------------
+> Write CMD_SetKeyLegend={01 03 02 04 01}
+LOG:Write seq 6 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14ooooooong item \x15"
+> Write CMD_SetCursorPos={00 00}
+LOG:Write seq 7 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14oooooong item  \x15"
+LOG:Write seq 8 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14ooooong item   \x15"
+LOG:Write seq 9 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14oooong item    \x15"
+LOG:Write seq 10 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14ooong item     \x15"
+LOG:Write seq 11 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14oong item      \x15"
+LOG:Write seq 12 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14ong item       \x15"
+LOG:Write seq 13 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14ng item        \x15"
+LOG:Write seq 14 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14g item         \x15"
+LOG:Write seq 15 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14 item          \x15"
+LOG:Write seq 16 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14item           \x15"
+LOG:Write seq 17 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14tem            \x15"
+LOG:Write seq 18 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14em             \x15"
+LOG:Write seq 19 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14m              \x15"
+LOG:Write seq 20 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14               \x15"
+LOG:Write seq 21 begins -------------
+LOG:Write seq 22 begins -------------
+LOG:Write seq 23 begins -------------
+LOG:Write seq 24 begins -------------
+LOG:Write seq 25 begins -------------
+LOG:Write seq 26 begins -------------
+LOG:Write seq 27 begins -------------
+LOG:Write seq 28 begins -------------
+> Write CMD_Write, @{c00,r1} txt="\x14               ."
+LOG:Write seq 29 begins -------------
+LOG:Write seq 30 begins -------------
+LOG:Write seq 31 begins -------------
+> Write CMD_Write, @{c00,r1} txt="loooooooong item\x15"
+LOG:Write seq 32 begins -------------
+> Write CMD_CfgKeyReports={00 00}
+> Write CMD_SetBacklight, dlen=1, data={00}, crc={0f cf}

@@ -1,0 +1,34 @@
+*** NCS2 DMiX WINS information  ***
+*** Date 6/30/2017 Time 4:17:03 PM  ***
+**********************************************
+
+Adapter Name=Intel(R) Ethernet Server Adapter I350-T4 #3
+NETBIOSOPTIONS
+0
+
+Adapter Name=Intel(R) Ethernet Server Adapter I350-T4
+NETBIOSOPTIONS
+0
+
+Adapter Name=Intel(R) Ethernet Server Adapter I350-T4 #4
+NETBIOSOPTIONS
+0
+
+Adapter Name=Intel(R) Ethernet Server Adapter I350-T4 #2
+NETBIOSOPTIONS
+0
+
+Adapter Name=Intel(R) I350 Gigabit Network Connection #3
+NETBIOSOPTIONS
+0
+
+Adapter Name=Intel(R) I350 Gigabit Network Connection #2
+NETBIOSOPTIONS
+0
+
+Adapter Name=Intel(R) I350 Gigabit Network Connection
+NETBIOSOPTIONS
+0
+
+
+

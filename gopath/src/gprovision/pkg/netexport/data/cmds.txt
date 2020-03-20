@@ -1,0 +1,13 @@
+netsh dump >net.dmp
+netsh interface dump >netsh-interface.dmp
+
+
+"\Program Files\Intel\DMIX\SavResDX.vbs" save
+savresdx has dialog boxes... how to disable?
+
+powershell -executionPolicy bypass -file "C:\Program Files\Intel\DMIX\SaveRestore.ps1" save
+Windows PowerShell
+Copyright (C) 2012 Microsoft Corporation. All rights reserved.
+
+Performing a save/Restore of configuration file at C:\Users\admin\Desktop\network\n3\Saved_Config.txt
+Performing a save

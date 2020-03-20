@@ -1,0 +1,21 @@
+> Write CMD_HwFwVers
+> Write CMD_ReadReportingAndStatus
+> Write CMD_SetCursorStyle=1
+> Write CMD_CfgKeyReports={00 0f}
+> Write CMD_SetKeyLegend={01 00 02 04 01}
+> Write CMD_Write, @{c00,r0} txt="one              "
+> Write CMD_Write, @{c00,r1} txt="two              "
+> Write CMD_SetCursorPos={00 00}
+> Write CMD_SetKeyLegend={01 03 02 04 01}
+> Write CMD_SetCursorPos={00 01}
+> Write CMD_Write, @{c00,r0} txt="two              "
+> Write CMD_Write, @{c00,r1} txt="thr33            "
+> Write CMD_Write, @{c00,r0} txt="thr33            "
+> Write CMD_Write, @{c00,r1} txt="4                "
+> Write CMD_Write, @{c00,r0} txt="4                "
+> Write CMD_Write, @{c00,r1} txt="                 "
+> Write CMD_Write, @{c00,r0} txt="                 "
+> Write CMD_Write, @{c00,r1} txt="5                "
+> Write CMD_SetKeyLegend={00}
+> Write CMD_SetCursorStyle=0
+> Write CMD_Clear

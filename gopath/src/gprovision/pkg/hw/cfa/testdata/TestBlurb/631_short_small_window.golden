@@ -1,0 +1,7 @@
+> Write CMD_HwFwVers
+> Write CMD_ReadReportingAndStatus
+LOG:Write seq 0 begins -------------
+LOG:Write seq 1 begins -------------
+LOG:Write seq 2 begins -------------
+> Write CMD_CfgKeyReports={00 00}
+> Write CMD_SetBacklight, dlen=1, data={00}, crc={0f cf}

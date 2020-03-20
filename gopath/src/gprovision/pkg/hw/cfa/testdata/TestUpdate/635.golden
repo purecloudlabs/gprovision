@@ -1,0 +1,25 @@
+> Write CMD_HwFwVers
+> Write CMD_ReadReportingAndStatus
+> Write CMD_Write, @{c19,r0} txt="\x1d"
+> Write CMD_Write, @{c19,r3} txt="\x1b"
+LOG:Write seq 0:10 begins -------------
+> Write CMD_Write, @{c19,r0} txt="\x1a"
+> Write CMD_Write, @{c19,r3} txt="\x1b"
+LOG:Write seq 0:9 begins -------------
+> Write CMD_SetCursorPos={00 01}
+LOG:Write seq 0:8 begins -------------
+> Write CMD_SetCursorPos={00 02}
+LOG:Write seq 0:7 begins -------------
+> Write CMD_SetCursorPos={00 03}
+LOG:Write seq 0:6 begins -------------
+LOG:Write seq 0:5 begins -------------
+LOG:Write seq 0:4 begins -------------
+LOG:Write seq 0:3 begins -------------
+LOG:Write seq 0:2 begins -------------
+LOG:Write seq 0:1 begins -------------
+> Write CMD_Write, @{c19,r0} txt="\x1a"
+> Write CMD_Write, @{c19,r3} txt="\x1e"
+LOG:Write seq 0:0 begins -------------
+LOG:Write seq 1:0 begins -------------
+> Write CMD_CfgKeyReports={00 00}
+> Write CMD_SetBacklight, dlen=1, data={00}, crc={0f cf}

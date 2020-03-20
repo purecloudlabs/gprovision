@@ -1,0 +1,23 @@
+<html><head><title>&#127355; {{.SN}}</title><link href="/css" rel="stylesheet" type="text/css"></head>
+<body>
+<center><a href=/recent/>Recent activity</a></center><hr>
+<h2>{{.SN}}</h2><hr>
+<h3>MACs</h3>
+<ol class=mac start=0>
+{{range .Macs.MAC}}<li><div>{{.}}</div></li>{{end}}
+</ol>
+{{if .IpmiMacs -}}
+<h3>IPMI MAC(s)</h3>
+<ol class=mac start=0>
+{{range .IpmiMacs.MAC}}<li><div>{{.}}</div></li>{{end}}
+</ol>
+{{- end}}
+<h3>Raw log</h3><list class=log>
+<li class='entry inline key'> <time>timestamp</time> <div class=errcode>msg code</div> <div class=content>entry</div><hr /></li>
+{{range .Entries.Evt}}
+  <li class='entry noninline'>
+  <time>{{tsStr .Time}}</time>
+  <div class=errcode>{{.EventType}}</div>
+  <div class=content>{{.Payload}}<br /></div></li>
+{{end}}
+</list></body></html>

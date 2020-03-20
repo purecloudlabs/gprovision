@@ -1,0 +1,86 @@
+ol.mac {
+	list-style-type: decimal;
+}
+.mac li div {
+	display: inline-block;
+	font-family: monospace;
+	padding: 3px;
+	margin: 3px;
+}
+div.pairing {
+	display: inline-block;
+	font-family: monospace;
+	margin-left: 2em;
+	padding: 3px;
+}
+list.log {
+	list-style-type: none;
+}
+.log li {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.log li.key {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+time, .errcode, .inline .content, .serial, .plat, .state {
+	padding: 3px;
+	margin-right: 3px;
+	margin-left: 3px;
+	border-radius: 5px;
+}
+.errcode {
+	text-align: center;
+	background: #4eb;
+	min-width: 6em;
+	display: inline-block;
+}
+time {
+	text-align: center;
+	background: #cae;
+	min-width: 11em;
+	display: inline-block;
+}
+time.today {
+	background: #9bd5e6;
+}
+.content {
+	background: #fcc;
+	border-radius: 3px;
+	padding: 5px;
+	font-family: monospace;
+    	white-space: pre;
+}
+.inline .content {
+	display: inline;
+}
+.noninline .content {
+	margin-top: 10px;
+	margin-left: 20px;
+	display: table;
+}
+.serial {
+	background: #4eb;
+	min-width: 15em;
+}
+.serial.unknown {
+	background: #fcc;
+}
+.plat {
+	background: #f9e3b2;
+}
+.state {
+	background: #ffd2d2;
+}
+body{
+	background-image: url("/bg");
+	background-repeat-x: no-repeat;
+	background-size: 100%;
+}
+.buildId {
+	font-family: monospace;
+	font-style: italic;
+}

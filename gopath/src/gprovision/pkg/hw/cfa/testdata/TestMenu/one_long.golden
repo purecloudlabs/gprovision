@@ -1,0 +1,26 @@
+> Write CMD_HwFwVers
+> Write CMD_ReadReportingAndStatus
+> Write CMD_SetCursorStyle=1
+> Write CMD_CfgKeyReports={00 0f}
+> Write CMD_SetKeyLegend={01 00 02 04 01}
+> Write CMD_Write, @{c00,r0} txt="one              "
+> Write CMD_Write, @{c00,r1} txt="A bcdefghi jklmn\x15"
+> Write CMD_SetCursorPos={00 00}
+> Write CMD_Write, @{c00,r1} txt="\x14bcdefghi jklmno\x15"
+> Write CMD_Write, @{c00,r1} txt="\x14cdefghi jklmno \x15"
+> Write CMD_Write, @{c00,r1} txt="\x14defghi jklmno p\x15"
+> Write CMD_Write, @{c00,r1} txt="\x14efghi jklmno pq\x15"
+> Write CMD_Write, @{c00,r1} txt="\x14fghi jklmno pqr\x15"
+> Write CMD_Write, @{c00,r1} txt="\x14ghi jklmno pqrs\x15"
+> Write CMD_Write, @{c00,r1} txt="\x14hi jklmno pqrst\x15"
+> Write CMD_Write, @{c00,r1} txt="\x14i jklmno pqrstu\x15"
+> Write CMD_Write, @{c00,r1} txt="\x14 jklmno pqrstu \x15"
+> Write CMD_Write, @{c00,r1} txt="\x14jklmno pqrstu v\x15"
+> Write CMD_Write, @{c00,r1} txt="\x14klmno pqrstu vw\x15"
+> Write CMD_Write, @{c00,r1} txt="\x14lmno pqrstu vwx\x15"
+> Write CMD_Write, @{c00,r1} txt="\x14mno pqrstu vwx \x15"
+> Write CMD_Write, @{c00,r1} txt="\x14no pqrstu vwx y\x15"
+> Write CMD_Write, @{c00,r1} txt="\x14o pqrstu vwx yz."
+> Write CMD_SetKeyLegend={00}
+> Write CMD_SetCursorStyle=0
+> Write CMD_Clear

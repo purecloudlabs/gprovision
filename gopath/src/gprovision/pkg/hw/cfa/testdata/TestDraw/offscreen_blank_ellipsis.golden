@@ -1,0 +1,27 @@
+> Write CMD_HwFwVers
+> Write CMD_ReadReportingAndStatus
+> Write CMD_SetKeyLegend={01 00 02 04 01}
+LOG:Write seq 0 begins -------------
+> Write CMD_Write, @{c00,r0} txt="one              "
+> Write CMD_Write, @{c00,r1} txt="two              "
+> Write CMD_SetCursorPos={00 00}
+> Write CMD_SetKeyLegend={01 03 02 04 01}
+LOG:Write seq 1 begins -------------
+> Write CMD_SetCursorPos={00 01}
+LOG:Write seq 2 begins -------------
+> Write CMD_Write, @{c00,r0} txt="two              "
+> Write CMD_Write, @{c00,r1} txt="thr33            "
+LOG:Write seq 3 begins -------------
+> Write CMD_Write, @{c00,r0} txt="thr33            "
+> Write CMD_Write, @{c00,r1} txt="4 long enough to\x15"
+LOG:Write seq 4 begins -------------
+> Write CMD_Write, @{c00,r0} txt="4 long enough to\x15"
+> Write CMD_Write, @{c00,r1} txt="                 "
+LOG:Write seq 5 begins -------------
+LOG:Write seq 6 begins -------------
+> Write CMD_Write, @{c00,r0} txt="                 "
+> Write CMD_Write, @{c00,r1} txt="5                "
+LOG:Write seq 7 begins -------------
+LOG:Write seq 8 begins -------------
+> Write CMD_CfgKeyReports={00 00}
+> Write CMD_SetBacklight, dlen=1, data={00}, crc={0f cf}

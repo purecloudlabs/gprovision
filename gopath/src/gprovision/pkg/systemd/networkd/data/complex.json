@@ -1,0 +1,148 @@
+{
+  "12": {
+    "FriendlyName": "Port 6",
+    "Mac": "00:26:fd:a0:0d:55",
+    "WinName": "Intel(R) Ethernet Server Adapter I350-T4",
+    "DHCP4": true,
+    "DHCP6": true,
+    "IsVLAN": false
+  },
+  "13": {
+    "FriendlyName": "Port 3",
+    "Mac": "00:26:fd:a0:0d:51",
+    "WinName": "Intel(R) I350 Gigabit Network Connection",
+    "DHCP4": false,
+    "DHCP6": true,
+    "IPs": [
+      "10.155.8.11/23"
+    ],
+    "Routes": [
+      {
+        "Destination": "0.0.0.0/0",
+        "Gateway": "10.155.8.1",
+        "Metric": 256
+      }
+    ],
+    "NameServers": [
+      "8.8.4.4",
+      "1.2.3.4"
+    ],
+    "IsVLAN": false
+  },
+  "14": {
+    "FriendlyName": "Port 4",
+    "Mac": "00:26:fd:a0:0d:53",
+    "WinName": "Intel(R) Ethernet Server Adapter I350-T4 #2",
+    "DHCP4": true,
+    "DHCP6": false,
+    "IPs": [
+      "27::234/32",
+      "30::234/30",
+      "64::234/64"
+    ],
+    "Routes": [
+      {
+        "Destination": "::/0",
+        "Gateway": "27::1",
+        "Metric": 256
+      }
+    ],
+    "NameServers": [
+      "26::1",
+      "26::2"
+    ],
+    "IsVLAN": false
+  },
+  "16": {
+    "FriendlyName": "Port 7",
+    "Mac": "00:26:fd:a0:0d:56",
+    "WinName": "Intel(R) Ethernet Server Adapter I350-T4 #3",
+    "DHCP4": true,
+    "DHCP6": true,
+    "IsVLAN": false
+  },
+  "17": {
+    "FriendlyName": "Port 1 (WAN)",
+    "Mac": "00:26:fd:a0:0d:4f",
+    "WinName": "Intel(R) I350 Gigabit Network Connection #3",
+    "DHCP4": true,
+    "DHCP6": true,
+    "IsVLAN": false
+  },
+  "23": {
+    "FriendlyName": "Port 2 - VLAN 54",
+    "Mac": "00:26:fd:a0:0d:50",
+    "WinName": "Intel(R) I350 Gigabit Network Connection #2 - VLAN : PureCloud Vlan=54",
+    "DHCP4": true,
+    "DHCP6": true,
+    "Routes": [
+      {
+        "Destination": "0.0.0.0/0",
+        "Gateway": "193.169.1.2",
+        "Metric": 456
+      },
+      {
+        "Destination": "0.0.0.0/0",
+        "Gateway": "195.88.23.1",
+        "Metric": 256
+      }
+    ],
+    "IsVLAN": true,
+    "VLAN": 54
+  },
+  "26": {
+    "FriendlyName": "Port 5 - VLAN 88",
+    "Mac": "00:26:fd:a0:0d:54",
+    "WinName": "Intel(R) Ethernet Server Adapter I350-T4 #4 - VLAN : PureCloud Vlan=88",
+    "DHCP4": false,
+    "DHCP6": false,
+    "IPs": [
+      "10.155.8.15/8",
+      "10.155.8.16/8",
+      "13::213/88",
+      "14::15/16"
+    ],
+    "Routes": [
+      {
+        "Destination": "0.0.0.0/0",
+        "Gateway": "10.155.8.1",
+        "Metric": 256
+      }
+    ],
+    "NameServers": [
+      "8.8.8.8",
+      "8.8.4.4",
+      "12::1",
+      "12::3"
+    ],
+    "IsVLAN": true,
+    "VLAN": 88
+  },
+  "27": {
+    "FriendlyName": "Port 2 - VLAN 58",
+    "Mac": "00:26:fd:a0:0d:50",
+    "WinName": "Intel(R) I350 Gigabit Network Connection #2 - VLAN : PureCloud Vlan=58",
+    "DHCP4": true,
+    "DHCP6": true,
+    "IsVLAN": true,
+    "VLAN": 58
+  },
+  "9990": {
+    "FriendlyName": "Port 2",
+    "Mac": "00:26:fd:a0:0d:50",
+    "WinName": "Intel(R) I350 Gigabit Network Connection #2",
+    "DHCP4": false,
+    "DHCP6": false,
+    "HasVLANChildren": true,
+    "IsVLAN": false
+  },
+  "9991": {
+    "FriendlyName": "Port 5",
+    "Mac": "00:26:fd:a0:0d:54",
+    "WinName": "Intel(R) Ethernet Server Adapter I350-T4 #4",
+    "DHCP4": false,
+    "DHCP6": false,
+    "HasVLANChildren": true,
+    "IsVLAN": false
+  }
+}
