@@ -44,6 +44,12 @@ to set up your env. This also runs `dep ensure` if it looks like you haven't, an
 
 For other shells, you'll need to set GOPATH and update PATH to include the repo's `/bin` so that our `mage` is found before any version you may have installed.
 
+### TEMPDIR
+
+For integ tests, your /tmp must have plenty of free space. If it has < 8GB or so, set the TEMPDIR env var to point to a dir that does have that much free space.
+
+Passing tests delete their temp dirs, but failing tests generally do not. Re-running a failed integ test will delete temp dirs from previous runs of that test. This delete is done with a  wildcard like `test-gprov-erase*`, so there is a slight but non-zero chance it would delete something it didn't create.
+
 ### mage
 Using mage is not necessary for simple packages like the crystalfontz code, but it is needed for things like the kernels with embedded initramfs and for integ tests. These integ tests depend on env vars mage sets, and are skipped if the vars are not set.
 
@@ -52,7 +58,7 @@ Due to required dependencies, mage will not run until after you run `dep` - see 
 Mage targets (listed with `mage -l`) are case insensitive, and each corresponds to a public function in $GOPATH/src/mage. For example, `mage bins:embedded` runs the function with signature `func (Bins) Embedded(ctx context.Context)`.
 
 ### qemu
-qemu is also needed for integ tests. See `qemu/` in the repo root for a Dockerfile that'll build qemu and copy the necessary files out.
+qemu is also needed for integ tests. See `qemu/` in the repo root for a Dockerfile that'll build qemu and copy the necessary files out. A pre-built version is available on github under releases, and is automatically downloaded by mage.
 
 ### dep
 dep is needed. Once installed, `cd ./gopath/src/gprovision` and run `dep ensure` to download all dependencies.
@@ -62,6 +68,9 @@ All tools required to build the kernel are needed - gcc, flex, bison, make, binu
 
 #### kernel version
 The kernel source to download is determined from the name of the `linux-*.config` file.
+
+### buildroot
+Files in `brx/` are inputs to build a cpio of non-go binaries. A pre-built version is available on github under releases, and is automatically downloaded by mage.
 
 ### Known to work with...
 Known to work with `go v1.12.5` or higher, and the latest `dep`.
@@ -76,3 +85,7 @@ To pull in dependencies:
 Once that is done, running `mage -l` from any dir should print a list of targets.
 
 `mage tests:integ`, for example, will build prerequisites and then run integ tests.
+
+## Known issues
+
+The integ tests are occasionally flaky, as are the crystalfontz tests.
