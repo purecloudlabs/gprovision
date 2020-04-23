@@ -131,7 +131,7 @@ func paths() {
 	LinterPath = fp.Join(WorkDir, "golangci-lint")
 
 	BlobstoreKDir = BlobstorePrefix + "kernel-src/"
-	BlobstoreBRCombined = BlobstorePrefix + "buildroot/combined.cpio.xz"
+	BlobstoreBRCombined = BlobstorePrefix + "combined.cpio.xz"
 	BlobstoreQemu = BlobstorePrefix + "qemu.txz"
 	BlobstoreLinter = BlobstorePrefix + "golangci-lint"
 }

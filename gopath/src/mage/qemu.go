@@ -12,6 +12,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"io"
+	"net/http"
 	"net/url"
 	"os"
 	"os/exec"
@@ -95,6 +97,22 @@ func blobcp(src, dest string, acl bool) error {
 		}
 		fmt.Printf("%v failed with %s\noutput:\n%s\n", cp.Args, err, out)
 		return err
+	case "https":
+		if strings.HasPrefix(dest, u.Scheme) {
+			fmt.Println("cannot upload to https, ignoring - ", dest)
+			return nil
+		}
+		var resp *http.Response
+		if resp, err = http.Get(src); err != nil {
+			return err
+		}
+		var out *os.File
+		if out, err = os.Create(dest); err != nil {
+			return err
+		}
+		if _, err = io.Copy(out, resp.Body); err != nil {
+			return err
+		}
 	default:
 		fmt.Printf("unsupported blobstore %s\n", u.Scheme)
 		return os.ErrInvalid
