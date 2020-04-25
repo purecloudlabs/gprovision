@@ -89,3 +89,111 @@ Once that is done, running `mage -l` from any dir should print a list of targets
 ## Known issues
 
 The integ tests are occasionally flaky, as are the crystalfontz tests.
+
+## Sequence
+
+### Provision, AKA manufacture
+
+    +---------+     +---------+
+    | Legacy  |     | UEFI    |
+    | PXEboot |     | PXEboot |
+    +----+----+     +----+----+
+         |               |
+         +-------+-------+
+                 |
+                 v
+          +------+------+
+          |provision.pxe|
+          +------+------+
+                 |
+                 v
+       +---------+----------+
+       | load json from url |
+       |  passed in kernel  |
+       | parameter 'mfgurl' |
+       +---------+----------+
+                 |
+                 v
+     +-----------+-------------+
+     | verify hardware specs,  |
+     | download image & write  |
+     |   to recovery volume,   |
+     | write credentials, etc  |
+     +-----------+-------------+
+                 |
+                 v
+        +--------+---------+
+        |  configure boot  |
+        | (legacy or uefi) |
+        +--------+---------+
+                 |
+                 v
+            +----+-----+
+            |  reboot  |
+            +----------+
+
+### All boots after manufacture
+
+      +--------+   +------+
+      | Legacy |   | UEFI |
+      |  boot  |   | boot |
+      +----+---+   +---+--+
+           |           |
+           +-----+-----+
+                 |
+                 v
+        +--------+--------+
+        | "normal" kernel |
+        +--------+--------+
+                 |
+                 v
+         +-------+-------+
+         | erase needed? |
+         +--+----------+-+
+            |          |
+            v          v
+          +-+--+    +--+--+
+          | no |    | yes |
+          +-+--+    +--+--+
+            |          |
+            |          v
+            |      +---+---+     +--------+
+            |      | erase +---->+ reboot |
+            |      +-------+     +--------+
+            |
+            v
+     +------+---------------+
+     | locate primary drive |
+     +----------+-----------+
+                |
+                v
+    +-----------+-----------+
+    | does flag file exist? |
+    +--+--------------+-----+
+       |              |
+       v              v
+    +--+-+         +--+--+
+    | no |         | yes |
+    +--+-+         +--+--+
+       |              |
+       |              v
+       |       +------+--------+
+       |       |   all good,   |     +----------+
+       |       | start systemd +---->+ eventual |
+       |       |   from disk   |     |  reboot  |
+       |       +---------------+     +----------+
+       v
+     +-+---------------------+
+     | start factory restore |
+     +----------+------------+
+                |
+                v
+     +----------+-------------------------+
+     |                                    |       +--------+
+     | find latest good image on recovery +------>+ reboot |
+     | format primary & write image       |       +--------+
+     | write network config               |
+     | write flag file                    |
+     | etc                                |
+     |                                    |
+     +------------------------------------+
