@@ -31,9 +31,54 @@ To facilitate open source release while still using proprietary packages within 
 
 If you wish to customize gprovision's behavior, start by looking at the interfaces in `common` - re-implementing one or more of these may provide all you need.
 
-## security
+## not included
+
+### security
 
 The code we could open source does *not* include a mechanism for secure storage of passwords. Password storage is required for the integ tests, so some sort of implementation was required. To discourage use of the simplistic and weak mechanism included in this code, it deliberately uses annoying passwords and emits warnings.
+
+### image creation
+
+This code does not include anything to build the images (`*.upd`).
+
+## Image
+
+### name
+
+The image name must match a specific format: `WIDGET.LNX.SHINY.YYYY-MM-DD.NNNN.upd`
+* extension: `.upd`
+* prefix must match the string returned by common/strs.ImgPrefix()
+  * default is `WIDGET.LNX.SHINY.`
+    * product: widget
+    * os: lnx
+    * hardware platform: shiny
+* remaining fields are date and a build number
+  * see recovery/archive package for additional info including sort algo
+
+### format
+
+* xz-compressed tarball
+  * xz _must_ be invoked with the sha256 checksum option
+  * treated as invalid if:
+    * xz signature is missing
+    * xz checksum type is not sha256
+    * xz checksum validation fails
+
+### content
+
+* the root filesystem that will be laid down
+  * we assume systemd is the init system, and that systemd-networkd manages networking
+* any boot loader files will be ignored
+* on install, the kernel located under /boot in the image is compared to the previously installed kernel
+  * comparison is by _build number_, not kernel version
+    * example: `4.19.16 (user@host) #300 SMP <timestamp>` => build number is 300
+    * use the kernel built here by mage
+      * build number is set from an env var
+  * kernel with higher number will overwrite the other
+* accounts
+  * admin must exist
+  * no accounts in the image (other than admin) should allow login
+  * factory restore will set password for admin account
 
 ## building
 
@@ -63,6 +108,9 @@ qemu is also needed for integ tests. See `qemu/` in the repo root for a Dockerfi
 ### dep
 dep is needed. Once installed, `cd ./gopath/src/gprovision` and run `dep ensure` to download all dependencies.
 
+### protoc
+protoc, the protocol buffer compiler, is needed for code generation.
+
 ### kernel
 All tools required to build the kernel are needed - gcc, flex, bison, make, binutils, etc. See kernel documentation for details.
 
@@ -73,7 +121,7 @@ The kernel source to download is determined from the name of the `linux-*.config
 Files in `brx/` are inputs to build a cpio of non-go binaries. A pre-built version is available on github under releases, and is automatically downloaded by mage.
 
 ### Known to work with...
-Known to work with `go v1.12.5` or higher, and the latest `dep`.
+Known to work with `go v1.12.5` or higher, the latest `dep`, and `protoc 3.x`.
 
 ### go packages
 To pull in dependencies:
@@ -102,9 +150,9 @@ The integ tests are occasionally flaky, as are the crystalfontz tests.
          +-------+-------+
                  |
                  v
-          +------+------+
-          |provision.pxe|
-          +------+------+
+         +-------+-------+
+         | provision.pxe |
+         +-------+-------+
                  |
                  v
        +---------+----------+
@@ -131,6 +179,8 @@ The integ tests are occasionally flaky, as are the crystalfontz tests.
             +----+-----+
             |  reboot  |
             +----------+
+
+See Infrastructure below for off-device services that are required.
 
 ### All boots after manufacture
 
@@ -178,9 +228,9 @@ The integ tests are occasionally flaky, as are the crystalfontz tests.
        |              |
        |              v
        |       +------+--------+
-       |       |   all good,   |     +----------+
+       |       | all good,     |     +----------+
        |       | start systemd +---->+ eventual |
-       |       |   from disk   |     |  reboot  |
+       |       | from primary  |     |  reboot  |
        |       +---------------+     +----------+
        v
      +-+---------------------+
@@ -197,3 +247,33 @@ The integ tests are occasionally flaky, as are the crystalfontz tests.
      | etc                                |
      |                                    |
      +------------------------------------+
+
+
+## Infrastructure for provisioning/manufacture
+
+The integ tests (especially lifecycle and mfg) set up minimal infrastructure, which could be used as examples for some of the infrastructure.
+
+For production, you will need the following:
+
+* DHCP and TFTP set up for PXEboot
+  * Setting up a network that will PXEboot both legacy and uefi can be painful. If you can get away with uefi-only, great!
+  * iPXE supports http transfers. They say this is far faster than tftp, so serve only the bare minimum (iPXE) from TFTP and everything else over http (assuming you use iPXE)
+* web server
+  * serve files needed by iPXE (if used) - menus, kernel
+  * serve file passed to kernel as mfgurl
+    * see below
+* log server
+  * collects logs produced by devices being imaged
+  * included implementation (cmd/util/pbLogServer, pkg/oss/pblog/server) bundles additional functionality - password generation & storage, qa doc printing, other record keeping.
+    * also includes a web server for viewing logs
+
+### mfgurl / manufData.json
+
+* format: json
+* lists additional files needed (common to all hardware variants)
+* lists hardware characteristics to validate (specific to a particular variant)
+* lists additial, variant-specific configuration steps
+
+Exactly what variant a device is, is determined by the [appliance](gopath/src/gprovision/pkg/appliance) package. That package primarily uses dmi/smbios fields.
+
+As an example, see [doc/manufDataSample.json](doc/manufDataSample.json).

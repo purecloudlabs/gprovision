@@ -1,0 +1,139 @@
+{
+  "_comment1": "this sample is based on the data used for integ tests",
+  "_comment2": "unknown keys are ignored; here, consider a leading underscore to indicate a comment",
+  "_comment3": "-------------------",
+  "_comment4": "if ApplianceJsonUrl is specified, that url is used for identification and then mfg will halt",
+  "_ApplianceJsonUrl": "http://10.0.2.2:8901/infra/appliance-qemu-ipmi.json",
+  "Files": [
+    {
+      "_comment1": "if omitted, Dest can be determined for *.upd and anything going in the root dir of RECOVERY/",
+      "_comment2": "the destination image directory must _always_ be capitalized if specified",
+      "_comment3": "adding an underscore has the same effect as omitting Dest entirely, except you can see what it _would_ look like",
+      "_Dest": "Image/WIDGET.LNX.SHINY.YYYY-MM-DD.NNNN.upd",
+      "Src": "http://10.0.2.2:8901/linux_mfg/Image/WIDGET.LNX.SHINY.YYYY-MM-DD.NNNN.upd",
+      "Sha1": "updsum"
+    },
+    {
+      "Src": "http://10.0.2.2:8901/KName",
+      "Sha1": "ksum"
+    }
+  ],
+  "LogEndpoint": "http://10.0.2.2:65432/",
+  "StashFiles": [
+    {
+      "Src": "http://10.0.2.2:8901/linux_mfg/stash.txz",
+      "Sha1": "mfgsum"
+    }
+  ],
+  "CredentialEndpoint": "CredEndpt",
+  "ValidationData": [
+    {
+      "DevCodeName": "QEMU-mfg-test",
+      "RamMegs": 1234,
+      "Recovery": {
+        "_comment": "10G",
+        "Size": 10737418240,
+        "SizeTolerancePct": 1,
+        "Vendor": "QEMU",
+        "Model": "QEMU HARDDISK"
+      },
+      "MainDiskConfigs": [
+        [
+          {
+            "_comment": "30G x 2",
+            "Size": 30000000000,
+            "SizeTolerancePct": 1,
+            "Vendor": "ATA",
+            "Model": "root30g",
+            "Quantity": 2
+          }
+        ],
+        [
+          {
+            "_comment": "2G",
+            "Size": 2147483648,
+            "SizeTolerancePct": 1,
+            "Vendor": "ATA",
+            "Model": "root2g",
+            "Quantity": 1
+          }
+        ],
+        [
+          {
+            "_comment": "20G",
+            "Size": 21474836480,
+            "SizeTolerancePct": 1,
+            "Vendor": "ATA",
+            "Model": "roothdd",
+            "Quantity": 1
+          }
+        ],
+        [
+          {
+            "_comment": "200G",
+            "Size": 214748364800,
+            "SizeTolerancePct": 1,
+            "Vendor": "ATA",
+            "Model": "root200g",
+            "Quantity": 1
+          }
+        ]
+      ],
+      "OUINicsSequential": true,
+      "NumOUINics": 1,
+      "TotalNics": 1,
+      "CPUInfo": {
+        "_comment": "determined by qemu -cpu arg",
+        "Model": "QEMU Virtual CPU version 2.5+",
+        "Cores": 4,
+        "Sockets": 4
+      }
+    }
+  ],
+  "CustomPlatCfgSteps": [
+    {
+      "DevCodeName": "QEMU-mfg-test",
+      "ConfigSteps": [
+        {
+          "Name": "Example step",
+          "When": "RunAfterImaging",
+          "Verbose": true,
+          "Files": [
+            {
+              "Src": "http://10.0.2.2:8901/sampleCmd.sh",
+              "Sha1": "cmdsum"
+            }
+          ],
+          "Commands": [
+            {
+              "Command": "chmod +x {{.DLDir}}/sampleCmd.sh",
+              "ExitStatus": "ESMustSucceed",
+              "AddPath": "",
+              "AddLibPath": ""
+            },
+            {
+              "Command": "{{.DLDir}}/sampleCmd.sh"
+            }
+          ]
+        },
+        {
+          "Name": "Another step",
+          "When": "RunAfterPWSet",
+          "Files": [],
+          "Verbose": true,
+          "Commands": [
+            {
+              "Command": "ls -lR {{ .RecoveryDir }} "
+            },
+            {
+              "Command": "echo serial={{.Serial}}"
+            },
+            {
+              "Command": "echo {{ .OSPass }} {{ .BiosPass }} {{ .IpmiPass }}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
