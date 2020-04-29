@@ -2,11 +2,20 @@
 
 Source code related to factory restore and provisioning (aka manufacture or imaging). Also includes buildroot files.
 
-## target platform
+## target architecture
 
 x86 linux
 
 This has only been tested on x86, but there shouldn't be much that is x86-specific. Buildroot is used to get a repeatable build of AMD64 utilities, as well as x86-32 libraries (one tool we use is only available in 32-bit versions).
+
+### known architecture-specific bits
+
+A few ioctl's are used by their raw number, rather than by symbol. These numbers are unlikely to be portable. All uses should be in packages under `hw/`.
+
+The type of the device (aka platform, variant) is currently determined from dmi/smbios values.
+
+PCI is ubiquitous on x86 but not as common elsewhere. There is some pci-specific logic but probably not in any critical paths.
+
 
 ## packages that may be of particular interest
 
@@ -14,8 +23,8 @@ This has only been tested on x86, but there shouldn't be much that is x86-specif
 * factory restore `gprovision/pkg/recovery`
 * data erase `gprovision/pkg/erase`
 * linux /init binary `gprovision/cmd/init`, `gprovision/pkg/init`
-    * determines whether to erase, factory restore, or do normal boot
-    * or, with the appropriate build tag, provisions the unit
+  * determines whether to erase, factory restore, or do normal boot
+  * or, with the appropriate build tag, provisions the unit
 * integ tests for the above
 * crystalfontz lcd code, including menus `gprovision/pkg/hw/cfa`
 * partitioning/formatting/bootability code for uefi and legacy `gprovision/pkg/recovery/disk`
@@ -41,7 +50,11 @@ The code we could open source does *not* include a mechanism for secure storage 
 
 This code does not include anything to build the images (`*.upd`).
 
-## Image
+### OTA
+
+A mechanism for distribution of over-the-air updates is not included, nor is any sort of fleet status/control dashboard. This code does not (currently) integrate with mender.io but that's probably the most logical choice for those functionalities.
+
+## image
 
 ### name
 
@@ -66,19 +79,38 @@ The image name must match a specific format: `WIDGET.LNX.SHINY.YYYY-MM-DD.NNNN.u
 
 ### content
 
-* the root filesystem that will be laid down
-  * we assume systemd is the init system, and that systemd-networkd manages networking
-* any boot loader files will be ignored
+* a tarball of the root filesystem that will be laid down
+  * assumptions
+    * systemd is the init system
+    * systemd-networkd manages networking
+    * `/boot/norm_boot` is the kernel built by mage in this repo, with embedded initramfs
 * on install, the kernel located under /boot in the image is compared to the previously installed kernel
   * comparison is by _build number_, not kernel version
     * example: `4.19.16 (user@host) #300 SMP <timestamp>` => build number is 300
     * use the kernel built here by mage
       * build number is set from an env var
-  * kernel with higher number will overwrite the other
+    * kernel with higher number will overwrite the other
+  * do not include any boot-related files except the kernel; they will be ignored.
+    * grub
+    * grub menus
+    * separate initramfs
+    * etc
 * accounts
   * admin must exist
   * no accounts in the image (other than admin) should allow login
   * factory restore will set password for admin account
+
+### file location
+
+Factory restore looks for update files on the recovery volume, under Image/. The first image is written during provisioning. Others are the responsibility of your code to download/place. Note that factory restore verifies the checksum to avoid corruption, but this does not provide any guarantees that the image came from the right place.
+
+Your download code should have additional safeguards, such as
+
+* signature verification
+* only allow downloads from a host under your control
+* only allow https downloads
+* pin the certificate for the download host
+* etc
 
 ## building
 
@@ -137,6 +169,8 @@ Once that is done, running `mage -l` from any dir should print a list of targets
 ## Known issues
 
 The integ tests are occasionally flaky, as are the crystalfontz tests.
+
+Shells out too much. u-root provides many packages we could use to avoid shelling out, but don't (yet).
 
 ## Sequence
 
@@ -259,21 +293,25 @@ For production, you will need the following:
   * Setting up a network that will PXEboot both legacy and uefi can be painful. If you can get away with uefi-only, great!
   * iPXE supports http transfers. They say this is far faster than tftp, so serve only the bare minimum (iPXE) from TFTP and everything else over http (assuming you use iPXE)
 * web server
-  * serve files needed by iPXE (if used) - menus, kernel
+  * serve files needed by iPXE (if used) - menus, provisioning kernel
   * serve file passed to kernel as mfgurl
     * see below
 * log server
   * collects logs produced by devices being imaged
-  * included implementation (cmd/util/pbLogServer, pkg/oss/pblog/server) bundles additional functionality - password generation & storage, qa doc printing, other record keeping.
-    * also includes a web server for viewing logs
+  * included implementation (cmd/util/pbLogServer, pkg/oss/pblog/server) bundles additional functionality
+    * password generation & storage
+    * qa doc printing
+    * other record keeping
+    * web server for viewing logs
 
 ### mfgurl / manufData.json
 
 * format: json
-* lists additional files needed (common to all hardware variants)
-* lists hardware characteristics to validate (specific to a particular variant)
-* lists additial, variant-specific configuration steps
-
-Exactly what variant a device is, is determined by the [appliance](gopath/src/gprovision/pkg/appliance) package. That package primarily uses dmi/smbios fields.
+* lists additional files needed, common to all hardware variants
+* specific to a particular variant:
+  * hardware characteristics for validation (# cpus, pci devices present, etc)
+  * additial configuration steps
 
 As an example, see [doc/manufDataSample.json](doc/manufDataSample.json).
+
+Exactly what variant a device is, is determined by the [appliance](gopath/src/gprovision/pkg/appliance) package. That package primarily uses dmi/smbios fields.
