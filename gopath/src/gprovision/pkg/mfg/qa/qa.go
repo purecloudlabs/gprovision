@@ -15,6 +15,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"gprovision/pkg/appliance"
+	"gprovision/pkg/common"
 	"gprovision/pkg/log"
 	"gprovision/pkg/mfg/mfgflags"
 	"io/ioutil"
@@ -124,7 +125,7 @@ func dump(required, detected Specs, alwaysRawDMI bool) {
    * population: write details of hardware that exists on this model to detected struct
    * validation: compare detected and required specs
 */
-func (required Specs) Validate(platform *appliance.Variant) {
+func (required Specs) Validate(platform common.PlatInfoer) {
 	required.SanityCheck()
 	checkSN(platform.SerNum(), required.SerNumRegex)
 
@@ -216,7 +217,7 @@ func logNE(required, detected interface{}, desc string) int {
 	return 0
 }
 
-func (s *Specs) Populate(platform *appliance.Variant) {
+func (s *Specs) Populate(platform common.PlatInfoer) {
 	if platform != nil {
 		s.DevCodeName = platform.DeviceCodeName()
 	}
