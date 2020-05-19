@@ -2,6 +2,8 @@
 
 Source code related to factory restore and provisioning (aka manufacture or imaging). Also includes buildroot files.
 
+Written in [go](https://golang.org).
+
 ## target architecture
 
 x86 linux
@@ -172,6 +174,8 @@ The integ tests are occasionally flaky, as are the crystalfontz tests.
 
 Shells out too much. u-root provides many packages we could use to avoid shelling out, but don't (yet).
 
+Old images are never removed from the recovery volume. This means you will eventually run out of space, depending on volume size, image size, and frequency of pushing out images. Though this could be seen as the responsibility of the code downloading images...
+
 ## Sequence
 
 ### Provision, AKA manufacture
@@ -294,8 +298,9 @@ For production, you will need the following:
   * iPXE supports http transfers. They say this is far faster than tftp, so serve only the bare minimum (iPXE) from TFTP and everything else over http (assuming you use iPXE)
 * web server
   * serve files needed by iPXE (if used) - menus, provisioning kernel
-  * serve file passed to kernel as mfgurl
-    * see below
+  * serve file passed to kernel as mfgurl, and files referenced by that file
+    * when booting provisioning.pxe, pass in an arg like `mfgurl=http://1.2.3.4/blah/manufData.json`
+    * content: see below
 * log server
   * collects logs produced by devices being imaged
   * included implementation (cmd/util/pbLogServer, pkg/oss/pblog/server) bundles additional functionality
@@ -308,6 +313,9 @@ For production, you will need the following:
 
 * format: json
 * lists additional files needed, common to all hardware variants
+  * image
+  * kernel
+  * (optional) other files to write to recovery volume
 * specific to a particular variant:
   * hardware characteristics for validation (# cpus, pci devices present, etc)
   * additial configuration steps
@@ -315,3 +323,12 @@ For production, you will need the following:
 As an example, see [doc/manufDataSample.json](doc/manufDataSample.json).
 
 Exactly what variant a device is, is determined by the [appliance](gopath/src/gprovision/pkg/appliance) package. That package primarily uses dmi/smbios fields.
+
+## If this repo interests you...
+
+Third party repos that cover similar topics:
+
+* github.com/u-root/u-root
+* github.com/gokrazy/gokrazy
+* github.com/mendersoftware/mender
+* github.com/sbabic/swupdate
