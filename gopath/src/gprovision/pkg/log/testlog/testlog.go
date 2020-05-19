@@ -61,6 +61,15 @@ func NewTestLog(t *testing.T, bufferLog, stderr bool) (tlog *TstLog) {
 	return
 }
 
+//Like NewTestLog, but does not use a channel or background thread. Provides more trackable output.
+func NewTestLogNoBG(t *testing.T) (tlog *TstLog) {
+	tlog = &TstLog{t: t}
+	log.TraceHelper(t)
+	log.NewLogStack(tlog)
+	log.SetFatalAction(log.FailAction{Terminator: func() {}})
+	return
+}
+
 var _ log.StackableLogger = (*TstLog)(nil)
 
 func (tlog *TstLog) AddEntry(e log.LogEntry) {
@@ -78,7 +87,12 @@ func (tlog *TstLog) AddEntry(e log.LogEntry) {
 	case flags.NA:
 		e.Msg = "LOG:" + e.Msg
 	}
-	tlog.events <- e
+	if tlog.events != nil {
+		tlog.events <- e
+	} else {
+		tlog.t.Helper()
+		tlog.handleEvt(e)
+	}
 }
 
 const TstLogIdent = "tstLog"
@@ -90,31 +104,37 @@ func (tl *TstLog) ForwardTo(_ log.StackableLogger) {}
 
 type leChan chan log.LogEntry
 
+//background process started by NewTestLog() but not NewTestLogNoBG()
 func (tlog *TstLog) bgProc() {
 	tlog.t.Helper()
 	defer tlog.bgWg.Done()
 	for evt := range tlog.events {
-		switch evt.Flags {
-		case flags.EndUser:
-			tlog.MsgCount++
-		case flags.Fatal:
-			tlog.FatalCount++
-			if !tlog.FatalIsNotErr {
-				tlog.t.Errorf("@%s: "+evt.Msg, evt.Time.Format(stampMilli), evt.Args)
-				continue
-			}
-		default:
-			tlog.LogCount++
+		tlog.handleEvt(evt)
+	}
+}
+
+func (tlog *TstLog) handleEvt(evt log.LogEntry) {
+	tlog.t.Helper()
+	f := "@" + evt.Time.Format(stampMilli) + ": " + evt.Msg
+	switch evt.Flags {
+	case flags.EndUser:
+		tlog.MsgCount++
+	case flags.Fatal:
+		tlog.FatalCount++
+		if !tlog.FatalIsNotErr {
+			tlog.t.Errorf(f, evt.Args...)
+			return
 		}
-		f := "@" + evt.Time.Format(stampMilli) + ": " + evt.Msg + "\n"
-		if tlog.stderr {
-			fmt.Fprintf(os.Stderr, f, evt.Args...)
-		}
-		if tlog.Buf != nil {
-			fmt.Fprintf(tlog.Buf, evt.Msg+"\n", evt.Args...)
-		} else {
-			tlog.t.Logf(f, evt.Args...)
-		}
+	default:
+		tlog.LogCount++
+	}
+	if tlog.stderr {
+		fmt.Fprintf(os.Stderr, f+"\n", evt.Args...)
+	}
+	if tlog.Buf != nil {
+		fmt.Fprintf(tlog.Buf, evt.Msg+"\n", evt.Args...)
+	} else {
+		tlog.t.Logf(f, evt.Args...)
 	}
 }
 
@@ -122,17 +142,12 @@ const stampMilli = "15:04:05.000" //time format used for stderr. like time.Stamp
 
 //sometimes used in testing to inject separators
 func (tlog *TstLog) Logf(f string, va ...interface{}) {
-	tlog.mu.RLock()
-	defer tlog.mu.RUnlock()
-	if tlog.freeze {
-		return
-	}
-	tlog.events <- log.LogEntry{
-		//et:   logEntry,
+	tlog.t.Helper()
+	tlog.AddEntry(log.LogEntry{
 		Time: time.Now(),
-		Msg:  "LOG:" + f,
+		Msg:  f,
 		Args: va,
-	}
+	})
 }
 
 //call at end of test to sync log and shut down bgProc
@@ -150,6 +165,9 @@ func (tlog *TstLog) Freeze() {
 	defer tlog.mu.Unlock()
 
 	tlog.freeze = true
+	if tlog.events == nil {
+		return
+	}
 	for len(tlog.events) > 0 {
 		time.Sleep(time.Millisecond)
 	}
@@ -158,7 +176,13 @@ func (tlog *TstLog) Freeze() {
 }
 
 // just calls testing.T.Errorf
-func (tlog *TstLog) TstErrf(f string, va ...interface{}) { tlog.t.Errorf(f, va...) }
+func (tlog *TstLog) TstErrf(f string, va ...interface{}) {
+	tlog.t.Helper()
+	tlog.t.Errorf(f, va...)
+}
 
 //just calls testing.T.Logf
-func (tlog *TstLog) TstLogf(f string, va ...interface{}) { tlog.t.Logf(f, va...) }
+func (tlog *TstLog) TstLogf(f string, va ...interface{}) {
+	tlog.t.Helper()
+	tlog.t.Logf(f, va...)
+}

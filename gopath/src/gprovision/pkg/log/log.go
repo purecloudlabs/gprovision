@@ -33,23 +33,53 @@ func GetPrefix() string { return logPrefix }
 // Msgf is for use with messages suitable for display to the user. Short,
 // non-technical. Use must be relatively infrequent, as user will need time
 // to read each message or it is useless.
-func Msgf(f string, va ...interface{}) { FlaggedLogf(flags.EndUser, f, va...) }
+func Msgf(f string, va ...interface{}) {
+	if traceHelper != nil {
+		traceHelper.Helper()
+	}
+	FlaggedLogf(flags.EndUser, f, va...)
+}
 
 // See Msgf
-func Msgln(va ...interface{}) { Msgf(fmt.Sprintln(va...)) }
+func Msgln(va ...interface{}) {
+	if traceHelper != nil {
+		traceHelper.Helper()
+	}
+	Msgf(fmt.Sprintln(va...))
+}
 
 // See Msgf
-func Msg(message string) { Msgf(message) }
+func Msg(message string) {
+	if traceHelper != nil {
+		traceHelper.Helper()
+	}
+	Msgf(message)
+}
 
 // Logf is for use with more technical, or more trivial, messages. Never
 // visible to user via lcd. No rate limiting concerns.
-func Logf(f string, va ...interface{}) { FlaggedLogf(flags.NA, f, va...) }
+func Logf(f string, va ...interface{}) {
+	if traceHelper != nil {
+		traceHelper.Helper()
+	}
+	FlaggedLogf(flags.NA, f, va...)
+}
 
 // See Logf
-func Logln(va ...interface{}) { Logf(fmt.Sprintln(va...)) }
+func Logln(va ...interface{}) {
+	if traceHelper != nil {
+		traceHelper.Helper()
+	}
+	Logf(fmt.Sprintln(va...))
+}
 
 // See Logf
-func Log(message string) { Logf(message) }
+func Log(message string) {
+	if traceHelper != nil {
+		traceHelper.Helper()
+	}
+	Logf(message)
+}
 
 // If the log stack includes a MemLog, this writes all of its content to stderr.
 // no-op otherwise.

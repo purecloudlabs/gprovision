@@ -53,6 +53,9 @@ func Fatalf(f string, va ...interface{}) {
 		AddConsoleLog(0)
 		Log("Fatalf: logging unconfigured")
 	}
+	if traceHelper != nil {
+		traceHelper.Helper()
+	}
 	FlaggedLogf(flags.Fatal, fatalAction.MsgPfx+f, va...)
 	if fatalAction.Pre != nil {
 		fatalAction.Pre(fatalAction.MsgPfx+f, va...)

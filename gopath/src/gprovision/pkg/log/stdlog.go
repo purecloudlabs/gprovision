@@ -47,6 +47,9 @@ func (sa *stdAdapter) Write(b []byte) (int, error) {
 		sa.resetSLFlags = false //once only
 		go sa.resetSlFlags()
 	}
+	if traceHelper != nil {
+		traceHelper.Helper()
+	}
 	FlaggedLogf(sa.level, string(b))
 	return len(b), nil
 }

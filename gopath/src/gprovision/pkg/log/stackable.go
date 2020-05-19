@@ -66,7 +66,10 @@ func Finalize() {
 
 // Restores the log stack to initial state. Calls Finalize on existing
 // logger(s), then replaces the existing stack with a memLog.
-func DefaultLogStack() { NewLogStack(&memLog{}) }
+func DefaultLogStack() {
+	NewLogStack(&memLog{})
+	traceHelper = nil
+}
 
 //Calls Finalize on existing logger(s), then sets newLog as the topmost logger.
 func NewLogStack(newLog StackableLogger) {
@@ -154,6 +157,9 @@ type LogEntry struct {
 func FlaggedLogf(opts flags.Flag, f string, va ...interface{}) {
 	logStackMtx.Lock()
 	defer logStackMtx.Unlock()
+	if traceHelper != nil {
+		traceHelper.Helper()
+	}
 	logStack.AddEntry(LogEntry{
 		Time:  time.Now(),
 		Flags: opts,
@@ -174,7 +180,11 @@ func (le *LogEntry) String() string {
 	default:
 		div = "?? "
 	}
-	f := div + le.Time.Format(TimestampLayout) + " " + div + le.Msg
+	f := div
+	if len(TimestampLayout) > 0 {
+		f += le.Time.Format(TimestampLayout) + " " + div
+	}
+	f += le.Msg
 	return fmt.Sprintf(f, le.Args...)
 }
 
@@ -215,3 +225,13 @@ func FindInStack(id string) StackableLogger {
 	}
 	return nil
 }
+
+// testing.T conforms
+type stackTraceHelper interface {
+	Helper()
+}
+
+var traceHelper stackTraceHelper
+
+//used by testlog to remove logging calls from testing stack traces.
+func TraceHelper(t stackTraceHelper) { traceHelper = t }
