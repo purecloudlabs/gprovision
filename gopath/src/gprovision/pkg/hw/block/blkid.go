@@ -18,6 +18,8 @@ import (
 	"github.com/google/shlex"
 )
 
+var Verbose bool
+
 func parseBlkidOut(out []byte) (binfo BlkInfo, err error) {
 	split := strings.Split(string(out), ":")
 	if len(split) != 2 {
@@ -50,7 +52,9 @@ func parseBlkidOut(out []byte) (binfo BlkInfo, err error) {
 		case "USAGE":
 			binfo.Usage = v
 		default:
-			log.Logf("blkid %s: ignoring %s", split[0], e)
+			if Verbose {
+				log.Logf("blkid %s: ignoring %s", split[0], e)
+			}
 		}
 	}
 	if binfo.FsType.Recognized() {
