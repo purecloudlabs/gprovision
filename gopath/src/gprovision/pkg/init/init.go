@@ -169,7 +169,7 @@ func init() {
 		{fstype: "sysfs", dev: "sysfs", path: "/sys", flags: unix.MS_NODEV | unix.MS_NOEXEC | unix.MS_NOSUID},
 		{fstype: "devtmpfs", dev: "devtmpfs", path: "/dev"},
 		{fstype: "proc", dev: "proc", path: "/proc", flags: unix.MS_NODEV | unix.MS_NOEXEC | unix.MS_NOSUID},
-		{path: "/", data: "remount,rw", flags: unix.MS_REMOUNT /*| ^unix.MS_RDONLY*/},
+		{path: "/", data: "remount,rw", flags: unix.MS_REMOUNT},
 	}
 }
 
