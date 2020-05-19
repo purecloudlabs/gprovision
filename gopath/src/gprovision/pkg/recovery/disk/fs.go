@@ -9,6 +9,7 @@ package disk
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"gprovision/pkg/common"
 	"gprovision/pkg/common/strs"
@@ -22,6 +23,8 @@ import (
 	fp "path/filepath"
 	"strings"
 	"time"
+
+	"github.com/u-root/u-root/pkg/mount"
 )
 
 var mounted []string
@@ -41,6 +44,9 @@ type Filesystem struct {
 func ExistingExt4Fs(device string, mounted bool) (fs *Filesystem) {
 	return ExistingFs(device, "ext4", "auto,relatime", mounted)
 }
+
+//ExistingFs creates a Filesystem struct corresponding to a fs that already
+// exists. See also: Filesystem.AutoUnmount()
 func ExistingFs(device, mntType, mntOpts string, mounted bool) (fs *Filesystem) {
 	fs = new(Filesystem)
 	fs.mountType = mntType
@@ -51,19 +57,27 @@ func ExistingFs(device, mntType, mntOpts string, mounted bool) (fs *Filesystem) 
 	return
 }
 
+//Add fs to list for auto-unmount, if it isn't already. For use with ExistingFs().
+func (fs *Filesystem) AutoUnmount() {
+	if !fs.mounted {
+		return
+	}
+	for _, m := range mounted {
+		if m == fs.Path() {
+			return
+		}
+	}
+	mounted = append(mounted, fs.Path())
+}
+
 func TestFilesystem(dir string) (fs Filesystem) {
 	fs.mounted = true
 	fs.mountPoint = dir
 	return
 }
 
-var NotRecoveryFS error
-var CantHandleThisFS error
-
-func init() {
-	NotRecoveryFS = fmt.Errorf("not a recovery fs")
-	CantHandleThisFS = fmt.Errorf("Can't handle unknown format of recovery fs")
-}
+var NotRecoveryFS = errors.New("not a recovery fs")
+var CantHandleThisFS = errors.New("Can't handle unknown format of recovery fs")
 
 //recovery can have conflicting options for multiple filesystems. Remove any that don't make sense for this fs type.
 func (fs *Filesystem) FixupRecoveryFS() (err error) {
@@ -108,7 +122,7 @@ func (fs Filesystem) FstabEntry(uid, gid string) (entry string) {
 
 //sets the mount point of a fs, before writing fstab. if mounted, mount location is still retrievable via Path()
 func (fs *Filesystem) SetMountpoint(pt string) {
-	if fs.mounted {
+	if fs.mounted && len(fs.mountPoint) > 0 {
 		fs.currentMountPoint = fs.mountPoint
 	}
 	fs.mountPoint = pt
@@ -235,32 +249,46 @@ func (fs *Filesystem) MountErr() (path string, err error) {
 	}
 	err = os.MkdirAll(fs.mountPoint, 0700)
 	if err != nil {
-		log.Log(fmt.Sprintln(err))
+		log.Logln(err)
 	}
-	/* we want nofail to be in fstab in some cases, but here we
-	 * need to know of failures - so don't pass it to mount
-	 */
+
+	// we want nofail to be in fstab in some cases, but here we
+	// need to know of failures - so don't pass it to mount
 	opts := removeOpts(fs.mountOpts, "nofail", "auto", "uid=", "gid=", "user_id=", "group_id=")
+
+	// Try u-root's Mount(). Not sure if it'll work on things like NTFS-3g
+	// (FUSE), so if this reports an error try with the mount binary.
+	err = mount.Mount(fs.blkdev, fs.mountPoint, fs.mountType, opts, 0)
+	if err == nil {
+		log.Logf("mount %s on %s", fs.blkdev, fs.mountPoint)
+		fs.mounted = true
+		mounted = append(mounted, fs.mountPoint)
+		return
+	}
+	log.Logf("u-root mount failed with %s, trying binary...", err) //
 	mnt := exec.Command("mount", fs.blkdev, fs.mountPoint, "-t", fs.mountType)
 	if opts != "" {
 		mnt.Args = append(mnt.Args, "-o", opts)
 	}
 	out, err := mnt.CombinedOutput()
 	if err != nil {
-		log.Log(fmt.Sprintln(mnt.Args, "\nerror:", err.Error(), "\nout:", string(out)))
+		log.Logln(mnt.Args, "\nerror:", err.Error(), "\nout:", string(out))
 		return "", err
 	}
 	fs.mounted = true
 	mounted = append(mounted, fs.mountPoint)
 	return
 }
+
 func (fs *Filesystem) Umount() {
 	if !fs.mounted {
 		log.Logf("umount: %s not mounted", fs.blkdev)
 		return
 	}
-	_, success := log.Cmd(exec.Command("umount", fs.blkdev))
-	if success {
+	err := mount.Unmount(fs.blkdev, false, true)
+	if err != nil {
+		log.Logf("umount %s: %s", fs.blkdev, err)
+	} else {
 		log.Logf("umount %s", fs.blkdev)
 		fs.mounted = false
 	}
