@@ -37,8 +37,9 @@ func EnableNetworkingSkipDIAG(diags []int, allowedPrefixes [][]byte) (success bo
 	return enableNetworkingIfaceList(diags, ifaces)
 }
 
-// bring interfaces up and try to acquire addr via dhcp, wait for any one to
-// gain ipv4
+// Bring interfaces up and try to acquire addr via dhcp, wait for any one to
+// gain ipv4. 'ifaces' must be sorted by mac or the 'diags' list will not work
+// as intended.
 func enableNetworkingIfaceList(diags []int, ifaces []nic.Nic) (success bool) {
 ifloop:
 	for idx, iface := range ifaces {
