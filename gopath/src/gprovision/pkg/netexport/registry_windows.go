@@ -9,6 +9,7 @@ package netexport
 
 import (
 	"fmt"
+	msguid "gprovision/pkg/guid"
 	"gprovision/pkg/log"
 	inet "gprovision/pkg/net"
 	"io"
@@ -137,7 +138,7 @@ func populateLuidMap() {
 		}
 		//https://blogs.msdn.microsoft.com/openspecification/2013/10/08/guids-and-endianness-endi-an-ne-ssinguid-or-idne-na-en-ssinguid/
 		binGuid := val[0x410:0x420]
-		guid := guidStrFromRegBin(binGuid)
+		guid := msguid.MSStrFromRegBin(binGuid)
 		if len(guid) != 38 {
 			panic(fmt.Sprintf("bad guid len (%d): %s", len(guid), guid))
 		}
