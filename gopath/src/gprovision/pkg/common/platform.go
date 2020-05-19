@@ -11,8 +11,13 @@ type SerNumer interface {
 	SerNum() string
 }
 
+type PlatNamer interface {
+	DeviceCodeName() string
+}
+
 type PlatInfoer interface {
 	SerNumer
+	PlatNamer
 	DiagPorts() []int
 	MACPrefixes() [][]byte
 	IsPrototype() bool

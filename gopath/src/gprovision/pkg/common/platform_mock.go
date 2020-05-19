@@ -16,7 +16,11 @@ type PlatMock struct {
 	Wan          int
 	Ser          string
 	BConf, IConf string
+	CodeName     string
 }
+
+//must implement PlatInfoer
+var _ PlatInfoer = (*PlatMock)(nil)
 
 func (pm *PlatMock) DiagPorts() []int       { return pm.Diag }
 func (pm *PlatMock) MACPrefixes() [][]byte  { return pm.MPs }
@@ -25,3 +29,4 @@ func (pm *PlatMock) WANIndex() int          { return pm.Wan }
 func (pm *PlatMock) SerNum() string         { return pm.Ser }
 func (pm *PlatMock) BiosConfigTool() string { return pm.BConf }
 func (pm *PlatMock) IpmiConfigTool() string { return pm.IConf }
+func (pm *PlatMock) DeviceCodeName() string { return pm.CodeName }
