@@ -18,32 +18,38 @@ func init() {
 
 //func ReadBootVar(num uint16) (b BootVar)
 func TestReadBootVar(t *testing.T) {
-	tlog := testlog.NewTestLog(t, true, false)
 	var n uint16
 	for n = 0; n < 11; n++ {
+		tlog := testlog.NewTestLogNoBG(t)
 		b := ReadBootVar(n)
+		t.Logf(b.String())
 		tlog.Freeze()
-		l := tlog.Buf.String()
-		if len(l) > 0 {
-			t.Logf("%s", b)
-			t.Error(l)
-		}
 	}
 }
 
 //func AllBootEntryVars() (list []BootEntryVar)
 func TestAllBootEntryVars(t *testing.T) {
-	tlog := testlog.NewTestLog(t, true, false)
+	tlog := testlog.NewTestLogNoBG(t)
 	bevs := AllBootEntryVars()
 	tlog.Freeze()
-	l := tlog.Buf.String()
-	if l != "" {
-		t.Error(l)
-	}
 	if len(bevs) != 11 {
 		for i, e := range bevs {
 			t.Logf("#%d: %s", i, e)
 		}
-		t.Errorf("expected 10 boot vars, got %d", len(bevs))
+		t.Errorf("expected 11 boot vars, got %d", len(bevs))
+	}
+}
+
+//func ReadCurrentBootVar() (b *BootEntryVar)
+func TestReadCurrentBootVar(t *testing.T) {
+	tlog := testlog.NewTestLogNoBG(t)
+	v := ReadCurrentBootVar()
+	t.Log(v)
+	tlog.Freeze()
+	if v == nil {
+		t.Fatal("nil")
+	}
+	if v.Number != 10 {
+		t.Errorf("expected 10, got %d", v.Number)
 	}
 }
