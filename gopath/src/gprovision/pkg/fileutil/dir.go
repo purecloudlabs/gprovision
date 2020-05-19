@@ -112,3 +112,34 @@ func ListFilesAndSize(dir, pattern string) (size int64, files []string) {
 	}
 	return
 }
+
+// Perform case-insensitive search for file matching name (not a glob), under
+// root, max depth maxdepth. Ignores symlinks. Returns absolute paths.
+func FindCaseInsensitive(root, name string, maxdepth int) (files []string, err error) {
+	name = strings.ToLower(name)
+	separator := string(os.PathSeparator)
+	err = fp.Walk(root, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if info == nil || info.IsDir() || info.Mode()&os.ModeSymlink != 0 {
+			return err
+		}
+		rel := strings.Trim(strings.TrimPrefix(path, root), separator)
+		if rel == path {
+			//not under 'root' - not sure if this is possible
+			return fp.SkipDir
+		}
+		seps := strings.Count(rel, separator)
+		if seps > maxdepth {
+			//too deep
+			return fp.SkipDir
+		}
+		if strings.ToLower(info.Name()) != name {
+			return nil
+		}
+		files = append(files, path)
+		return nil
+	})
+	return
+}

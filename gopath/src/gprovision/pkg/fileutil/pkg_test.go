@@ -12,6 +12,7 @@ import (
 	"io/ioutil"
 	"os"
 	fp "path/filepath"
+	"sort"
 	"strings"
 	"sync"
 	"testing"
@@ -342,5 +343,89 @@ func TestMountpoint(t *testing.T) {
 		if got != td.want {
 			t.Errorf("%s: got %t want %t", td.path, got, td.want)
 		}
+	}
+}
+
+//func FindCaseInsensitive(root, name string, maxdepth int) (files []string, err error)
+func TestFindCaseInsensitive(t *testing.T) {
+	tmpdir, err := ioutil.TempDir("", "go-test-futil-find")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() {
+		if t.Failed() {
+			t.Logf("not deleting temp dir %s", tmpdir)
+		} else {
+			if err = os.RemoveAll(tmpdir); err != nil {
+				t.Fatal(err)
+			}
+		}
+	}()
+	//set up test files
+	files := []string{"a/b", "a/c/d", "d/e", "f/d", "b"}
+	for _, f := range files {
+		p := fp.Join(tmpdir, f)
+		err = os.MkdirAll(fp.Dir(p), 0777)
+		if err != nil {
+			t.Fatal(err)
+		}
+		err = ioutil.WriteFile(p, []byte(p), 0644)
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+	for _, td := range []struct {
+		name     string
+		search   string
+		maxdepth int
+		results  []string
+	}{
+		{
+			name:     "a",
+			search:   "a",
+			maxdepth: 10,
+			results:  []string{},
+		},
+		{
+			name:     "b",
+			search:   "b",
+			maxdepth: 10,
+			results:  []string{files[0], files[4]},
+		},
+		{
+			name:     "d",
+			search:   "d",
+			maxdepth: 1,
+			results:  []string{files[3]},
+		},
+		{
+			name:     "d2",
+			search:   "d",
+			maxdepth: 2,
+			results:  []string{files[1], files[3]},
+		},
+	} {
+		t.Run(td.name, func(t *testing.T) {
+			res, err := FindCaseInsensitive(tmpdir, td.search, td.maxdepth)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if len(res) != len(td.results) {
+				t.Errorf("different number of results - got %d want %d", len(res), len(td.results))
+			}
+			for i := range res {
+				res[i] = strings.TrimPrefix(res[i], tmpdir+string(os.PathSeparator))
+			}
+			sort.Strings(res)
+			sort.Strings(td.results)
+			for i := range res {
+				if len(td.results) > i && res[i] != td.results[i] {
+					t.Errorf("mismatch at index %d", i)
+				}
+			}
+			if t.Failed() {
+				t.Logf("\nwant: %s\ngot: %s", td.results, res)
+			}
+		})
 	}
 }
