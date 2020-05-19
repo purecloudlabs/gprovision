@@ -5,26 +5,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 //
 
-// Package appliance contains data on various models/revisions of appliance.
-//
-// This includes sufficient data for identification of a particular variant, as
-// well as data on its components where differences may matter.
-//
-// For example, RAM doesn't matter (except when there is very little of it).
-// RAID type matters, but the CPU type and number of cores doesn't.
-//
-// Build tags
-//
-// light: light builds are able to query platform_facts.json only; non-light is
-// also able to use dmidecode (which requires root).
-//
-// release: non-release builds include extra functionality for use in testing
-// other packages.
-//
-// Generated code
-//
-// `go generate` runs go-bindata, encoding files under data/. This is embedded
-// in the binary.
 package appliance
 
 import (
