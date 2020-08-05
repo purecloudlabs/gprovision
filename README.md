@@ -116,12 +116,23 @@ Your download code should have additional safeguards, such as
 
 ## building
 
-### GOPATH, PATH
+Modules are not supported yet; at least one of our dependencies needs changes before it'll work with modules. This repo may also need changes for modules. Thus, you will need to have GOPATH set up.
+
+Many packages can be built with `go build`, but the initramfs's, kernels, and integ tests require mage.
+
+### generated code
+
+Generated code is used in a number of packages and (with the exception of protocol buffer code) isn't included in the repo. If go-bindata is present, `go generate ./...` will suffice; otherwise, `mage bins:generate` will fetch the correct version and generate code.
+
+If you desire to re-generate pb code (for pkg/oss/pblog), remove `disabled ` from the go:generate line in gen.go first. You'll need protoc installed, as well as the plugins for grpc and go.
+
+### PATH (for mage)
 With bash on linux, run
     . ./bash_env.sh
-to set up your env. This also runs `dep ensure` if it looks like you haven't, and lists mage targets.
+to set up your env. This adds `bin/` to your PATH, runs `dep ensure` if it looks like you haven't, and lists mage targets.
 
-For other shells, you'll need to set GOPATH and update PATH to include the repo's `/bin` so that our `mage` is found before any version you may have installed.
+For other shells, you'll need to update PATH to include the repo's `/bin` so that our `mage` is found before any version you may have installed.
+
 
 ### TEMPDIR
 
@@ -164,9 +175,12 @@ To pull in dependencies:
     dep ensure
 
 ### verify
-Once that is done, running `mage -l` from any dir should print a list of targets.
 
-`mage tests:integ`, for example, will build prerequisites and then run integ tests.
+Once that is done, running `mage -l` from any dir should print a list of targets. (This is automatically done when you `source bash-env.sh`, so generally this can be skipped.)
+
+Targets are run like so:
+* `mage tests:unit`
+  * runs unit tests (but not the much more lengthy integ tests)
 
 ## Known issues
 

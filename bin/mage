@@ -1,4 +1,8 @@
 #!/bin/sh -e
 
-cd $GOPATH/src/mage/
+bin=$(realpath $(dirname $0))
+
+build=$(realpath $bin/../build)
+
+cd $build
 exec go run magerunner.go -v $@

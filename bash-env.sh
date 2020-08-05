@@ -1,23 +1,24 @@
 #source this file
 
-export GOPATH=$(realpath ./gopath)
 export PATH=$(realpath ./bin):$PATH
+
+if [[ ! -d .githooks ]]; then
+  echo "must source this file from the dir it resides in"
+  return
+fi
 
 (
   cd .git/hooks
-  if [[ ! -e pre-commit ]]; then
+  if [[ ! -L pre-commit ]]; then
     echo "setting up pre-commit hook"
     ln -s ../.githooks/pre-commit pre-commit
   fi
 )
 
-(
-  cd ./gopath/src/gprovision
-  if [[ ! -d vendor/github.com ]]; then
-    echo "run dep ensure"
-    dep ensure
-  fi
-)
+if [[ ! -d vendor/github.com ]]; then
+  echo "running dep ensure"
+  dep ensure
+fi
 
-echo available targets:
+echo Done.
 mage -l
