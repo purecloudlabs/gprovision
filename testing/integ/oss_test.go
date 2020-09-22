@@ -8,7 +8,7 @@
 package integ
 
 import (
-	"gprovision/pkg/oss/frd"
+	"github.com/purecloudlabs/gprovision/pkg/oss/frd"
 )
 
 func init() {

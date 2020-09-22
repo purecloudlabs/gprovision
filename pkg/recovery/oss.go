@@ -8,9 +8,9 @@
 package recovery
 
 import (
-	"gprovision/pkg/oss/frd"
-	"gprovision/pkg/oss/pblog"
-	"gprovision/pkg/oss/stash"
+	"github.com/purecloudlabs/gprovision/pkg/oss/frd"
+	"github.com/purecloudlabs/gprovision/pkg/oss/pblog"
+	"github.com/purecloudlabs/gprovision/pkg/oss/stash"
 )
 
 func init() {
