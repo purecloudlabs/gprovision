@@ -1,4 +1,5 @@
 # gprovision
+[![GoDoc](https://godoc.org/github.com/purecloudlabs/gprovision?status.svg)](https://godoc.org/github.com/purecloudlabs/gprovision)
 
 Source code related to factory restore and provisioning (aka manufacture or imaging). Also includes buildroot files.
 

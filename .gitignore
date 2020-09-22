@@ -6,3 +6,4 @@ unit_test_out.xml
 *_qav.htm
 .bb
 /bin/go-bindata
+/vendor
