@@ -16,11 +16,13 @@ import (
 	"testing"
 
 	"github.com/santhosh-tekuri/jsonschema"
+
+	"github.com/purecloudlabs/gprovision/build/paths"
 )
 
 //load json from disk, compare with bindata version
 func TestBindataProprietary(t *testing.T) {
-	aj := fp.Join(os.Getenv("INFRA_ROOT"), "gopath/src/github.com/purecloudlabs/gprovision/proprietary/data/appliance/appliance.json")
+	aj := fp.Join(paths.RepoRoot, "proprietary/data/appliance/appliance.json")
 	if _, err := os.Stat(aj); err != nil {
 		t.Skipf("no json to embed, nothing to compare")
 	}
