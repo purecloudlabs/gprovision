@@ -148,7 +148,7 @@ Using mage is not necessary for simple packages like the crystalfontz code, but 
 
 Due to required dependencies, mage will not run until after you run `dep` - see its section above.
 
-Mage targets (listed with `mage -l`) are case insensitive, and each corresponds to a public function in $GOPATH/src/mage. For example, `mage bins:embedded` runs the function with signature `func (Bins) Embedded(ctx context.Context)`.
+Mage targets (listed with `mage -l`) are case insensitive, and each corresponds to a public function in `build/`. For example, `mage bins:embedded` runs the function with signature `func (Bins) Embedded(ctx context.Context)`.
 
 ### qemu
 qemu is also needed for integ tests. See `build/qemu/` for a Dockerfile that'll build qemu and copy the necessary files out. A pre-built version is available on github under releases, and is automatically downloaded by mage.
