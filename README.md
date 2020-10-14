@@ -134,28 +134,27 @@ to set up your env. This adds `bin/` to your PATH, runs `dep ensure` if it looks
 
 For other shells, you'll need to update PATH to include the repo's `/bin` so that our `mage` is found before any version you may have installed.
 
-
 ### TEMPDIR
 
 For integ tests, your /tmp must have plenty of free space. If it has < 8GB or so, set the TEMPDIR env var to point to a dir that does have that much free space.
 
-Passing tests delete their temp dirs, but failing tests generally do not. Re-running a failed integ test will delete temp dirs from previous runs of that test. This delete is done with a  wildcard like `test-gprov-erase*`, so there is a slight but non-zero chance it would delete something it didn't create.
+Passing tests delete their temp dirs, but failing tests generally do not. Re-running a failed integ test will delete temp dirs from previous runs of that test. This delete is done with a wildcard like `test-gprov-erase*`, so there is a slight but non-zero chance it would delete something it didn't create.
+
+### dep
+dep is needed. Once installed, `cd` to the repo root and run `dep ensure` to download all dependencies.
 
 ### mage
 Using mage is not necessary for simple packages like the crystalfontz code, but it is needed for things like the kernels with embedded initramfs and for integ tests. These integ tests depend on env vars mage sets, and are skipped if the vars are not set.
 
-Due to required dependencies, mage will not run until after you run `dep` - see its section below.
+Due to required dependencies, mage will not run until after you run `dep` - see its section above.
 
 Mage targets (listed with `mage -l`) are case insensitive, and each corresponds to a public function in $GOPATH/src/mage. For example, `mage bins:embedded` runs the function with signature `func (Bins) Embedded(ctx context.Context)`.
 
 ### qemu
-qemu is also needed for integ tests. See `qemu/` in the repo root for a Dockerfile that'll build qemu and copy the necessary files out. A pre-built version is available on github under releases, and is automatically downloaded by mage.
-
-### dep
-dep is needed. Once installed, `cd ./gopath/src/gprovision` and run `dep ensure` to download all dependencies.
+qemu is also needed for integ tests. See `build/qemu/` for a Dockerfile that'll build qemu and copy the necessary files out. A pre-built version is available on github under releases, and is automatically downloaded by mage.
 
 ### protoc
-protoc, the protocol buffer compiler, is needed for code generation.
+Optional: protoc, the protocol buffer compiler, is only needed to regenerate code for `pkg/oss/pblog`.
 
 ### kernel
 All tools required to build the kernel are needed - gcc, flex, bison, make, binutils, etc. See kernel documentation for details.
@@ -164,7 +163,7 @@ All tools required to build the kernel are needed - gcc, flex, bison, make, binu
 The kernel source to download is determined from the name of the `linux-*.config` file.
 
 ### buildroot
-Files in `brx/` are inputs to build a cpio of non-go binaries. A pre-built version is available on github under releases, and is automatically downloaded by mage.
+Files in `build/brx/` are inputs to build a cpio of non-go binaries. A pre-built version is available on github under releases, and is automatically downloaded by mage.
 
 ### Known to work with...
 Known to work with `go v1.12.5` or higher, the latest `dep`, and `protoc 3.x`.
@@ -337,7 +336,7 @@ For production, you will need the following:
 
 As an example, see [doc/manufDataSample.json](doc/manufDataSample.json).
 
-Exactly what variant a device is, is determined by the [appliance](gopath/src/gprovision/pkg/appliance) package. That package primarily uses dmi/smbios fields.
+Exactly what variant a device is, is determined by the [appliance](pkg/appliance) package. That package primarily uses dmi/smbios fields.
 
 ## If this repo interests you...
 
