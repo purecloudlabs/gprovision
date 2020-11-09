@@ -106,6 +106,9 @@ func blobcp(src, dest string, acl bool) error {
 		if resp, err = http.Get(src); err != nil {
 			return err
 		}
+		if resp.StatusCode == 404 {
+			return os.ErrInvalid
+		}
 		var out *os.File
 		if out, err = os.Create(dest); err != nil {
 			return err
