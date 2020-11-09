@@ -79,17 +79,6 @@
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:577ad137539c0c4e556fd19ff155f5b3f70ccda84f5eca436c3131e85082d4f8"
-  name = "github.com/godbus/dbus"
-  packages = [
-    ".",
-    "introspect",
-  ]
-  pruneopts = "NUT"
-  revision = "735b987ea3fc98b200348de1656e97f656ed4873"
-  version = "v5.0.2"
-
-[[projects]]
   digest = "1:2dcc32af5bf38c37286c96f0077efa98007f67946b690fce98a3e07b9659bdf1"
   name = "github.com/gofrs/flock"
   packages = ["."]
@@ -153,26 +142,11 @@
   revision = "ac98e3ecb4b017efb5c5d0fc075c2ded1f5d500d"
 
 [[projects]]
-  branch = "master"
-  digest = "1:312b66e73aa2bb084b7b7d6489fa386dd56b27d848ccb1288b7a0c5a3c9defdb"
-  name = "github.com/jkeiser/iter"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "67b94d6149c6b2efe0fde15d36a50a7692c2da17"
-
-[[projects]]
   digest = "1:1f2aebae7e7c856562355ec0198d8ca2fa222fb05e5b1b66632a1fce39631885"
   name = "github.com/jmespath/go-jmespath"
   packages = ["."]
   pruneopts = "NUT"
   revision = "c2b33e84"
-
-[[projects]]
-  digest = "1:0c222e73227ec6777ee971f9169ab7aecaafeba981a403b62e84e8bab76aa32a"
-  name = "github.com/jochenvg/go-udev"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "b7a82d7b755ee9b24b4a4cfd2c0626200903810a"
 
 [[projects]]
   digest = "1:d14dc1b956b9a6d2ff6745333f0ee487aa4b42659a1ed300cf3852a30b9b9352"
@@ -183,22 +157,6 @@
   ]
   pruneopts = "NUT"
   revision = "212d2a5cdcb78d5"
-
-[[projects]]
-  digest = "1:e6226faa239121577874fe51cdab93953c5574f10339c2e9412eb6cd90ace4bb"
-  name = "github.com/mdp/qrterminal"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "11fc7373051f5e96eac3079061343e2899fdd9c6"
-  version = "v3.0.0"
-
-[[projects]]
-  branch = "master"
-  digest = "1:ed9167cebacf7920f892233309c0a6a055e6e85ebd216a02bbc3943928308e42"
-  name = "github.com/mitranim/repr"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "d8a052d012f85ed43bc99f6f2654e19d2bdcd456"
 
 [[projects]]
   digest = "1:fefe0abfb891e988b8027dbb71e9fda2fc5d0752c26d52d16d243251ab40f65b"
@@ -214,14 +172,6 @@
   pruneopts = "NUT"
   revision = "1c36bf78a98209d91af71354deb001cca75e11fc"
   version = "v1.9.0"
-
-[[projects]]
-  digest = "1:ed5cdbf41229bda9908876a5d9dc839e13f8b86474eb04f211930921ce529902"
-  name = "github.com/neko-neko/utmpdump"
-  packages = ["utmp"]
-  pruneopts = "NUT"
-  revision = "b5afe0a84a0940a6583733392b0e09b487443cff"
-  version = "v2.0.0"
 
 [[projects]]
   digest = "1:4047c378584616813d610c9f993bf90dd0d07aed8d94bd3bc299cd35ececdcba"
@@ -338,7 +288,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0feff127097de25bc72c526fc74a8273d96da1c26cb87d5794ad2c9849b91900"
+  digest = "1:008536efa3243302324ed20e6782e7a6371f7763d35dd60e617298e91542488e"
   name = "golang.org/x/crypto"
   packages = [
     "blowfish",
@@ -347,9 +297,7 @@
     "ed25519",
     "ed25519/internal/edwards25519",
     "internal/subtle",
-    "pbkdf2",
     "poly1305",
-    "sha3",
     "ssh",
     "ssh/internal/bcrypt_pbkdf",
   ]
@@ -514,18 +462,6 @@
   revision = "f495f5b15ae7ccda3b38c53a1bfcde4c1a58a2bc"
   version = "v1.27.1"
 
-[[projects]]
-  digest = "1:7623f89b7faa16aaffabe3a6236f7bec325ab9f7aa3d6bb9c25c0e1299be89da"
-  name = "rsc.io/qr"
-  packages = [
-    ".",
-    "coding",
-    "gf256",
-  ]
-  pruneopts = "NUT"
-  revision = "ca9a01fc2f9505024045632c50e5e8cd6142fafe"
-  version = "v0.2.0"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
@@ -535,21 +471,15 @@
     "github.com/aws/aws-sdk-go/aws/session",
     "github.com/aws/aws-sdk-go/service/s3/s3manager",
     "github.com/bmizerany/pat",
-    "github.com/godbus/dbus",
-    "github.com/godbus/dbus/introspect",
     "github.com/golang/protobuf/proto",
     "github.com/golang/protobuf/ptypes/empty",
     "github.com/google/shlex",
     "github.com/google/uuid",
-    "github.com/jochenvg/go-udev",
     "github.com/jteeuwen/go-bindata/go-bindata",
     "github.com/magefile/mage/mage",
     "github.com/magefile/mage/mg",
     "github.com/magefile/mage/sh",
     "github.com/magefile/mage/target",
-    "github.com/mdp/qrterminal",
-    "github.com/mitranim/repr",
-    "github.com/neko-neko/utmpdump/utmp",
     "github.com/prologic/bitcask",
     "github.com/rjeczalik/notify",
     "github.com/santhosh-tekuri/jsonschema",
@@ -565,14 +495,11 @@
     "github.com/u-root/u-root/pkg/vmtest",
     "github.com/ulikunitz/xz",
     "github.com/vishvananda/netlink",
-    "golang.org/x/crypto/pbkdf2",
-    "golang.org/x/crypto/sha3",
     "golang.org/x/sync/errgroup",
     "golang.org/x/sys/unix",
     "golang.org/x/sys/windows",
     "golang.org/x/sys/windows/registry",
     "google.golang.org/grpc",
-    "rsc.io/qr",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
