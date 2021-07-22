@@ -191,7 +191,7 @@
 
 [[projects]]
   digest = "1:2350b47a156dd9bbb70398580149cc297636c22ce5d27a33e27c3e48a2638453"
-  name = "github.com/prologic/bitcask"
+  name = "git.mills.io/prologic/bitcask"
   packages = [
     ".",
     "internal",
@@ -480,7 +480,7 @@
     "github.com/magefile/mage/mg",
     "github.com/magefile/mage/sh",
     "github.com/magefile/mage/target",
-    "github.com/prologic/bitcask",
+    "git.mills.io/prologic/bitcask",
     "github.com/rjeczalik/notify",
     "github.com/santhosh-tekuri/jsonschema",
     "github.com/soheilhy/cmux",
