@@ -15,7 +15,7 @@ import (
 	"github.com/purecloudlabs/gprovision/pkg/oss/pblog/pb"
 
 	"github.com/golang/protobuf/proto"
-	"github.com/prologic/bitcask"
+	"git.mills.io/prologic/bitcask"
 )
 
 // A trivial database impl for our data storage needs. Not recommended for any
